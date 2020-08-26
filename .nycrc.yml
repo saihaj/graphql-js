@@ -6,7 +6,6 @@ exclude:
   - '**/*-fuzz.js'
   - '**/*-benchmark.js'
   - '**/*.d.ts'
-  - 'src/utilities/findDeprecatedUsages.js'
 clean: true
 temp-directory: 'coverage/tests'
 report-dir: 'coverage/tests'
