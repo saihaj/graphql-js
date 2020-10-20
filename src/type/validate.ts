@@ -39,6 +39,7 @@ import {
   isRequiredArgument,
   isRequiredInputField,
 } from './definition';
+import { Maybe } from '../jsutils/Maybe';
 
 /**
  * Implements the "Type Validation" sub-sections of the specification's
@@ -93,7 +94,7 @@ class SchemaValidationContext {
 
   reportError(
     message: string,
-    nodes?: ReadonlyArray<?ASTNode> | ?ASTNode,
+    nodes?: ReadonlyArray<Maybe<ASTNode>> | Maybe<ASTNode>,
   ): void {
     const _nodes = Array.isArray(nodes) ? nodes.filter(Boolean) : nodes;
     this.addError(new GraphQLError(message, _nodes));
@@ -144,7 +145,7 @@ function validateRootTypes(context: SchemaValidationContext): void {
 function getOperationTypeNode(
   schema: GraphQLSchema,
   operation: OperationTypeNode,
-): ?ASTNode {
+): Maybe<ASTNode> {
   const operationNodes = getAllSubNodes(schema, (node) => node.operationTypes);
   for (const node of operationNodes) {
     if (node.operation === operation) {
@@ -200,7 +201,7 @@ function validateDirectives(context: SchemaValidationContext): void {
 
 function validateName(
   context: SchemaValidationContext,
-  node: { readonly name: string, readonly astNode: ?ASTNode, ... },
+  node: { readonly name: string, readonly astNode: Maybe<ASTNode>, ... },
 ): void {
   // Ensure names are valid, however introspection types opt out.
   const error = isValidNameError(node.name);
@@ -612,8 +613,8 @@ function createInputObjectCircularRefsValidator(
 }
 
 type SDLDefinedObject<T, K> = {
-  +astNode: ?T,
-  +extensionASTNodes?: ?ReadonlyArray<K>,
+  +astNode: Maybe<T>,
+  +extensionASTNodes?: Maybe<ReadonlyArray<K>>,
   ...
 };
 
@@ -630,7 +631,7 @@ function getAllNodes<T: ASTNode, K: ASTNode>(
 
 function getAllSubNodes<T: ASTNode, K: ASTNode, L: ASTNode>(
   object: SDLDefinedObject<T, K>,
-  getter: (T | K) => ?(L | ReadonlyArray<L>),
+  getter: (T | K) => Maybe<(L | ReadonlyArray<L>)>,
 ): ReadonlyArray<L> {
   let subNodes = [];
   for (const node of getAllNodes(object)) {

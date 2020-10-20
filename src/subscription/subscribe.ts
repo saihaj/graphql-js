@@ -24,16 +24,17 @@ import type { GraphQLFieldResolver } from '../type/definition';
 import { getOperationRootType } from '../utilities/getOperationRootType';
 
 import mapAsyncIterator from './mapAsyncIterator';
+import { Maybe } from '../jsutils/Maybe';
 
 export type SubscriptionArgs = {
   schema: GraphQLSchema,
   document: DocumentNode,
   rootValue?: unknown,
   contextValue?: unknown,
-  variableValues?: ?{ readonly [variable: string]: unknown, ... },
-  operationName?: ?string,
-  fieldResolver?: ?GraphQLFieldResolver<any, any>,
-  subscribeFieldResolver?: ?GraphQLFieldResolver<any, any>,
+  variableValues?: Maybe<{ readonly [variable: string]: unknown, ... }>,
+  operationName?: Maybe<string>,
+  fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
+  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
 };
 
 /**
@@ -157,9 +158,9 @@ export function createSourceEventStream(
   document: DocumentNode,
   rootValue?: unknown,
   contextValue?: unknown,
-  variableValues?: ?{ readonly [variable: string]: unknown, ... },
-  operationName?: ?string,
-  fieldResolver?: ?GraphQLFieldResolver<any, any>,
+  variableValues?: Maybe<{ readonly [variable: string]: unknown, ... }>,
+  operationName?: Maybe<string>,
+  fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
 ): Promise<AsyncIterable<unknown> | ExecutionResult> {
   // If arguments are missing or incorrectly typed, this is an internal
   // developer mistake which should throw an early error.

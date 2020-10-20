@@ -36,8 +36,9 @@ import { concatAST } from '../concatAST';
 import { printSchema } from '../printSchema';
 import { extendSchema } from '../extendSchema';
 import { buildSchema } from '../buildASTSchema';
+import { Maybe } from '../../jsutils/Maybe';
 
-function printExtensionNodes(obj: ?GraphQLNamedType | GraphQLSchema): string {
+function printExtensionNodes(obj: Maybe<GraphQLNamedType | GraphQLSchema>): string {
   invariant(obj?.extensionASTNodes != null);
   return print({
     kind: Kind.DOCUMENT,
@@ -59,7 +60,7 @@ function printSchemaChanges(
   });
 }
 
-function printASTNode(obj: ?{ readonly astNode: ?ASTNode, ... }): string {
+function printASTNode(obj: Maybe<{ readonly astNode: Maybe<ASTNode>, ... }>): string {
   invariant(obj?.astNode != null);
   return print(obj.astNode);
 }

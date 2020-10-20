@@ -12,6 +12,7 @@ import type {
   GraphQLGrammarPeekConstraint,
   GraphQLGrammarConstraintsSet,
 } from './grammar';
+import { Maybe } from '../../jsutils/Maybe';
 
 export const TokenKind = {
   NAME: 'Name',
@@ -86,13 +87,13 @@ export type OnlineParserState = {
 type Token = {
   kind: string,
   value: string,
-  tokenName?: ?string,
-  ruleName?: ?string,
+  tokenName?: Maybe<string>,
+  ruleName?: Maybe<string>,
 };
 
 type LexerToken = {
   kind: string,
-  value: ?string,
+  value: Maybe<string>,
 };
 
 type OnlineParserConfig = {

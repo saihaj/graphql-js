@@ -24,7 +24,7 @@ import type { ValueNode } from '../language/ast';
  */
 export function valueFromASTUntyped(
   valueNode: ValueNode,
-  variables?: ?ObjMap<unknown>,
+  variables?: Maybe<ObjMap<unknown>>,
 ): unknown {
   switch (valueNode.kind) {
     case Kind.NULL:

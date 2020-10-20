@@ -83,6 +83,7 @@ import {
 } from '../type/definition';
 
 import { valueFromAST } from './valueFromAST';
+import { Maybe } from '../jsutils/Maybe';
 
 type Options = {
   ...GraphQLSchemaValidationOptions,
@@ -146,7 +147,7 @@ export function extendSchemaImpl(
   // have the same name. For example, a type named "skip".
   const directiveDefs: Array<DirectiveDefinitionNode> = [];
 
-  let schemaDef: ?SchemaDefinitionNode;
+  let schemaDef: Maybe<SchemaDefinitionNode>;
   // Schema extensions are collected which may add additional operation types.
   const schemaExtensions: Array<SchemaExtensionNode> = [];
 
@@ -397,9 +398,9 @@ export function extendSchemaImpl(
   function getOperationTypes(
     nodes: ReadonlyArray<SchemaDefinitionNode | SchemaExtensionNode>,
   ): {
-    query: ?GraphQLObjectType,
-    mutation: ?GraphQLObjectType,
-    subscription: ?GraphQLObjectType,
+    query: Maybe<GraphQLObjectType>,
+    mutation: Maybe<GraphQLObjectType>,
+    subscription: Maybe<GraphQLObjectType>,
   } {
     const opTypes = {};
     for (const node of nodes) {
@@ -483,7 +484,7 @@ export function extendSchemaImpl(
   }
 
   function buildArgumentMap(
-    args: ?ReadonlyArray<InputValueDefinitionNode>,
+    args: Maybe<ReadonlyArray<InputValueDefinitionNode>>,
   ): GraphQLFieldConfigArgumentMap {
     // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
     const argsNodes = args ?? [];

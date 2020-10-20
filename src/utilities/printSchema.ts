@@ -35,6 +35,7 @@ import {
 } from '../type/definition';
 
 import { astFromValue } from './astFromValue';
+import { Maybe } from '../jsutils/Maybe';
 
 export function printSchema(schema: GraphQLSchema): string {
   return printFilteredSchema(

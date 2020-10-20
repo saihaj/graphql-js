@@ -35,6 +35,7 @@ import {
 } from '../type/introspection';
 
 import { typeFromAST } from './typeFromAST';
+import { Maybe } from '../jsutils/Maybe';
 
 /**
  * TypeInfo is a utility class which, given a GraphQL schema, can keep track
@@ -43,14 +44,14 @@ import { typeFromAST } from './typeFromAST';
  */
 export class TypeInfo {
   _schema: GraphQLSchema;
-  _typeStack: Array<?GraphQLOutputType>;
-  _parentTypeStack: Array<?GraphQLCompositeType>;
-  _inputTypeStack: Array<?GraphQLInputType>;
-  _fieldDefStack: Array<?GraphQLField<unknown, unknown>>;
-  _defaultValueStack: Array<?unknown>;
-  _directive: ?GraphQLDirective;
-  _argument: ?GraphQLArgument;
-  _enumValue: ?GraphQLEnumValue;
+  _typeStack: Array<Maybe<GraphQLOutputType>>;
+  _parentTypeStack: Array<Maybe<GraphQLCompositeType>>;
+  _inputTypeStack: Array<Maybe<GraphQLInputType>>;
+  _fieldDefStack: Array<Maybe<GraphQLField<unknown, unknown>>>;
+  _defaultValueStack: Array<Maybe<unknown>>;
+  _directive: Maybe<GraphQLDirective>;
+  _argument: Maybe<GraphQLArgument>;
+  _enumValue: Maybe<GraphQLEnumValue>;
   _getFieldDef: typeof getFieldDef;
 
   constructor(
@@ -86,51 +87,51 @@ export class TypeInfo {
     }
   }
 
-  getType(): ?GraphQLOutputType {
+  getType(): Maybe<GraphQLOutputType> {
     if (this._typeStack.length > 0) {
       return this._typeStack[this._typeStack.length - 1];
     }
   }
 
-  getParentType(): ?GraphQLCompositeType {
+  getParentType(): Maybe<GraphQLCompositeType> {
     if (this._parentTypeStack.length > 0) {
       return this._parentTypeStack[this._parentTypeStack.length - 1];
     }
   }
 
-  getInputType(): ?GraphQLInputType {
+  getInputType(): Maybe<GraphQLInputType> {
     if (this._inputTypeStack.length > 0) {
       return this._inputTypeStack[this._inputTypeStack.length - 1];
     }
   }
 
-  getParentInputType(): ?GraphQLInputType {
+  getParentInputType(): Maybe<GraphQLInputType> {
     if (this._inputTypeStack.length > 1) {
       return this._inputTypeStack[this._inputTypeStack.length - 2];
     }
   }
 
-  getFieldDef(): ?GraphQLField<unknown, unknown> {
+  getFieldDef(): Maybe<GraphQLField<unknown, unknown>> {
     if (this._fieldDefStack.length > 0) {
       return this._fieldDefStack[this._fieldDefStack.length - 1];
     }
   }
 
-  getDefaultValue(): ?unknown {
+  getDefaultValue(): Maybe<unknown> {
     if (this._defaultValueStack.length > 0) {
       return this._defaultValueStack[this._defaultValueStack.length - 1];
     }
   }
 
-  getDirective(): ?GraphQLDirective {
+  getDirective(): Maybe<GraphQLDirective> {
     return this._directive;
   }
 
-  getArgument(): ?GraphQLArgument {
+  getArgument(): Maybe<GraphQLArgument> {
     return this._argument;
   }
 
-  getEnumValue(): ?GraphQLEnumValue {
+  getEnumValue(): Maybe<GraphQLEnumValue> {
     return this._enumValue;
   }
 
@@ -300,7 +301,7 @@ function getFieldDef(
   schema: GraphQLSchema,
   parentType: GraphQLType,
   fieldNode: FieldNode,
-): ?GraphQLField<unknown, unknown> {
+): Maybe<GraphQLField<unknown, unknown>> {
   const name = fieldNode.name.value;
   if (
     name === SchemaMetaFieldDef.name &&

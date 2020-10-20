@@ -24,12 +24,13 @@ import {
 } from '../../type/definition';
 
 import { valueFromAST } from '../valueFromAST';
+import { Maybe } from '../../jsutils/Maybe';
 
 describe('valueFromAST', () => {
   function expectValueFrom(
     valueText: string,
     type: GraphQLInputType,
-    variables: ?ObjMap<unknown>,
+    variables: Maybe<ObjMap<unknown>>,
   ) {
     const ast = parseValue(valueText);
     const value = valueFromAST(ast, type, variables);
