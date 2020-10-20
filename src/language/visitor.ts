@@ -30,13 +30,13 @@ export type VisitFn<TAnyNode, TVisitedNode: TAnyNode = TAnyNode> = (
   // The index or key to this node from the parent node or Array.
   key: string | number | void,
   // The parent immediately above this node, which may be an Array.
-  parent: TAnyNode | $ReadOnlyArray<TAnyNode> | void,
+  parent: TAnyNode | ReadonlyArray<TAnyNode> | void,
   // The key path to get to this node from the root node.
-  path: $ReadOnlyArray<string | number>,
+  path: ReadonlyArray<string | number>,
   // All nodes and Arrays visited before reaching parent of this node.
   // These correspond to array indices in `path`.
   // Note: ancestors includes arrays which contain the parent of visited node.
-  ancestors: $ReadOnlyArray<TAnyNode | $ReadOnlyArray<TAnyNode>>,
+  ancestors: ReadonlyArray<TAnyNode | ReadonlyArray<TAnyNode>>,
 ) => any;
 
 /**
@@ -44,7 +44,7 @@ export type VisitFn<TAnyNode, TVisitedNode: TAnyNode = TAnyNode> = (
  */
 export type VisitorKeyMap<KindToNode> = $ObjMap<
   KindToNode,
-  <T>(T) => $ReadOnlyArray<$Keys<T>>,
+  <T>(T) => ReadonlyArray<$Keys<T>>,
 >;
 
 export const QueryDocumentKeys: VisitorKeyMap<ASTKindToNode> = {
@@ -355,7 +355,7 @@ export function visit(
  * If a prior visitor edits a node, no following visitors will see that node.
  */
 export function visitInParallel(
-  visitors: $ReadOnlyArray<Visitor<ASTKindToNode>>,
+  visitors: ReadonlyArray<Visitor<ASTKindToNode>>,
 ): Visitor<ASTKindToNode> {
   const skipping = new Array(visitors.length);
 

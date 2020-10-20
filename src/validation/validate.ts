@@ -33,10 +33,10 @@ import { SDLValidationContext, ValidationContext } from './ValidationContext';
 export function validate(
   schema: GraphQLSchema,
   documentAST: DocumentNode,
-  rules?: $ReadOnlyArray<ValidationRule> = specifiedRules,
+  rules?: ReadonlyArray<ValidationRule> = specifiedRules,
   typeInfo?: TypeInfo = new TypeInfo(schema),
   options?: { maxErrors?: number } = { maxErrors: undefined },
-): $ReadOnlyArray<GraphQLError> {
+): ReadonlyArray<GraphQLError> {
   devAssert(documentAST, 'Must provide document.');
   // If the schema used for validation is invalid, throw an error.
   assertValidSchema(schema);
@@ -81,8 +81,8 @@ export function validate(
 export function validateSDL(
   documentAST: DocumentNode,
   schemaToExtend?: ?GraphQLSchema,
-  rules?: $ReadOnlyArray<SDLValidationRule> = specifiedSDLRules,
-): $ReadOnlyArray<GraphQLError> {
+  rules?: ReadonlyArray<SDLValidationRule> = specifiedSDLRules,
+): ReadonlyArray<GraphQLError> {
   const errors = [];
   const context = new SDLValidationContext(
     documentAST,

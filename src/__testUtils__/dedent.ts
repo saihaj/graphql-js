@@ -11,8 +11,8 @@
  * str === "{\n  test\n}\n";
  */
 export default function dedent(
-  strings: $ReadOnlyArray<string>,
-  ...values: $ReadOnlyArray<string>
+  strings: ReadonlyArray<string>,
+  ...values: ReadonlyArray<string>
 ): string {
   let str = '';
 

@@ -112,13 +112,13 @@ export type ExecutionContext = {
  *   - `extensions` is reserved for adding non-standard properties.
  */
 export type ExecutionResult = {
-  errors?: $ReadOnlyArray<GraphQLError>,
+  errors?: ReadonlyArray<GraphQLError>,
   data?: ObjMap<mixed> | null,
   extensions?: ObjMap<mixed>,
 };
 
 export type FormattedExecutionResult = {
-  errors?: $ReadOnlyArray<GraphQLFormattedError>,
+  errors?: ReadonlyArray<GraphQLFormattedError>,
   data?: ObjMap<mixed> | null,
   extensions?: ObjMap<mixed>,
 };
@@ -260,7 +260,7 @@ export function buildExecutionContext(
   operationName: ?string,
   fieldResolver: ?GraphQLFieldResolver<mixed, mixed>,
   typeResolver?: ?GraphQLTypeResolver<mixed, mixed>,
-): $ReadOnlyArray<GraphQLError> | ExecutionContext {
+): ReadonlyArray<GraphQLError> | ExecutionContext {
   let operation: OperationDefinitionNode | void;
   const fragments: ObjMap<FragmentDefinitionNode> = Object.create(null);
   for (const definition of document.definitions) {
@@ -585,7 +585,7 @@ function resolveField(
   exeContext: ExecutionContext,
   parentType: GraphQLObjectType,
   source: mixed,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   path: Path,
 ): PromiseOrValue<mixed> {
   const fieldNode = fieldNodes[0];
@@ -662,7 +662,7 @@ function resolveField(
 export function buildResolveInfo(
   exeContext: ExecutionContext,
   fieldDef: GraphQLField<mixed, mixed>,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   parentType: GraphQLObjectType,
   path: Path,
 ): GraphQLResolveInfo {
@@ -723,7 +723,7 @@ function handleFieldError(
 function completeValue(
   exeContext: ExecutionContext,
   returnType: GraphQLOutputType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   info: GraphQLResolveInfo,
   path: Path,
   result: mixed,
@@ -816,11 +816,11 @@ function completeValue(
 function completeListValue(
   exeContext: ExecutionContext,
   returnType: GraphQLList<GraphQLOutputType>,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   info: GraphQLResolveInfo,
   path: Path,
   result: mixed,
-): PromiseOrValue<$ReadOnlyArray<mixed>> {
+): PromiseOrValue<ReadonlyArray<mixed>> {
   if (!isCollection(result)) {
     throw new GraphQLError(
       `Expected Iterable, but did not find one for field "${info.parentType.name}.${info.fieldName}".`,
@@ -904,7 +904,7 @@ function completeLeafValue(returnType: GraphQLLeafType, result: mixed): mixed {
 function completeAbstractValue(
   exeContext: ExecutionContext,
   returnType: GraphQLAbstractType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   info: GraphQLResolveInfo,
   path: Path,
   result: mixed,
@@ -954,7 +954,7 @@ function ensureValidRuntimeType(
   runtimeTypeName: mixed,
   exeContext: ExecutionContext,
   returnType: GraphQLAbstractType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   info: GraphQLResolveInfo,
   result: mixed,
 ): GraphQLObjectType {
@@ -1011,7 +1011,7 @@ function ensureValidRuntimeType(
 function completeObjectValue(
   exeContext: ExecutionContext,
   returnType: GraphQLObjectType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   info: GraphQLResolveInfo,
   path: Path,
   result: mixed,
@@ -1054,7 +1054,7 @@ function completeObjectValue(
 function invalidReturnTypeError(
   returnType: GraphQLObjectType,
   result: mixed,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
 ): GraphQLError {
   return new GraphQLError(
     `Expected value of type "${returnType.name}" but got: ${inspect(result)}.`,
@@ -1065,7 +1065,7 @@ function invalidReturnTypeError(
 function collectAndExecuteSubfields(
   exeContext: ExecutionContext,
   returnType: GraphQLObjectType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
   path: Path,
   result: mixed,
 ): PromiseOrValue<ObjMap<mixed>> {
@@ -1083,7 +1083,7 @@ const collectSubfields = memoize3(_collectSubfields);
 function _collectSubfields(
   exeContext: ExecutionContext,
   returnType: GraphQLObjectType,
-  fieldNodes: $ReadOnlyArray<FieldNode>,
+  fieldNodes: ReadonlyArray<FieldNode>,
 ): ObjMap<Array<FieldNode>> {
   let subFieldNodes = Object.create(null);
   const visitedFragmentNames = Object.create(null);

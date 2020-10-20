@@ -49,7 +49,7 @@ import {
  */
 export function validateSchema(
   schema: GraphQLSchema,
-): $ReadOnlyArray<GraphQLError> {
+): ReadonlyArray<GraphQLError> {
   // First check to ensure the provided value is in fact a GraphQLSchema.
   assertSchema(schema);
 
@@ -93,7 +93,7 @@ class SchemaValidationContext {
 
   reportError(
     message: string,
-    nodes?: $ReadOnlyArray<?ASTNode> | ?ASTNode,
+    nodes?: ReadonlyArray<?ASTNode> | ?ASTNode,
   ): void {
     const _nodes = Array.isArray(nodes) ? nodes.filter(Boolean) : nodes;
     this.addError(new GraphQLError(message, _nodes));
@@ -103,7 +103,7 @@ class SchemaValidationContext {
     this._errors.push(error);
   }
 
-  getErrors(): $ReadOnlyArray<GraphQLError> {
+  getErrors(): ReadonlyArray<GraphQLError> {
     return this._errors;
   }
 }
@@ -613,13 +613,13 @@ function createInputObjectCircularRefsValidator(
 
 type SDLDefinedObject<T, K> = {
   +astNode: ?T,
-  +extensionASTNodes?: ?$ReadOnlyArray<K>,
+  +extensionASTNodes?: ?ReadonlyArray<K>,
   ...
 };
 
 function getAllNodes<T: ASTNode, K: ASTNode>(
   object: SDLDefinedObject<T, K>,
-): $ReadOnlyArray<T | K> {
+): ReadonlyArray<T | K> {
   const { astNode, extensionASTNodes } = object;
   return astNode
     ? extensionASTNodes
@@ -630,8 +630,8 @@ function getAllNodes<T: ASTNode, K: ASTNode>(
 
 function getAllSubNodes<T: ASTNode, K: ASTNode, L: ASTNode>(
   object: SDLDefinedObject<T, K>,
-  getter: (T | K) => ?(L | $ReadOnlyArray<L>),
-): $ReadOnlyArray<L> {
+  getter: (T | K) => ?(L | ReadonlyArray<L>),
+): ReadonlyArray<L> {
   let subNodes = [];
   for (const node of getAllNodes(object)) {
     // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
@@ -643,7 +643,7 @@ function getAllSubNodes<T: ASTNode, K: ASTNode, L: ASTNode>(
 function getAllImplementsInterfaceNodes(
   type: GraphQLObjectType | GraphQLInterfaceType,
   iface: GraphQLInterfaceType,
-): $ReadOnlyArray<NamedTypeNode> {
+): ReadonlyArray<NamedTypeNode> {
   return getAllSubNodes(type, (typeNode) => typeNode.interfaces).filter(
     (ifaceNode) => ifaceNode.name.value === iface.name,
   );
@@ -652,14 +652,14 @@ function getAllImplementsInterfaceNodes(
 function getUnionMemberTypeNodes(
   union: GraphQLUnionType,
   typeName: string,
-): ?$ReadOnlyArray<NamedTypeNode> {
+): ?ReadonlyArray<NamedTypeNode> {
   return getAllSubNodes(union, (unionNode) => unionNode.types).filter(
     (typeNode) => typeNode.name.value === typeName,
   );
 }
 
 function getDeprecatedDirectiveNode(
-  definitionNode: ?{ +directives?: $ReadOnlyArray<DirectiveNode>, ... },
+  definitionNode: ?{ +directives?: ReadonlyArray<DirectiveNode>, ... },
 ): ?DirectiveNode {
   // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
   return definitionNode?.directives?.find(

@@ -24,7 +24,7 @@ import type { ObjMap } from './ObjMap';
  *
  */
 export default function keyMap<T>(
-  list: $ReadOnlyArray<T>,
+  list: ReadonlyArray<T>,
   keyFn: (item: T) => string,
 ): ObjMap<T> {
   return list.reduce((map, item) => {
