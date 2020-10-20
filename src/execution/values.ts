@@ -25,7 +25,7 @@ import { Maybe } from '../jsutils/Maybe';
 
 type CoercedVariableValues =
   | { errors: ReadonlyArray<GraphQLError> }
-  | { coerced: { [variable: string]: unknown, ... } };
+  | { coerced: { [variable: string]: unknown } };
 
 /**
  * Prepares an object map of variableValues of the correct type based on the
@@ -41,7 +41,7 @@ type CoercedVariableValues =
 export function getVariableValues(
   schema: GraphQLSchema,
   varDefNodes: ReadonlyArray<VariableDefinitionNode>,
-  inputs: { readonly [variable: string]: unknown, ... },
+  inputs: { readonly [variable: string]: unknown },
   options?: { maxErrors?: number },
 ): CoercedVariableValues {
   const errors = [];
@@ -74,9 +74,9 @@ export function getVariableValues(
 function coerceVariableValues(
   schema: GraphQLSchema,
   varDefNodes: ReadonlyArray<VariableDefinitionNode>,
-  inputs: { readonly [variable: string]: unknown, ... },
+  inputs: { readonly [variable: string]: unknown },
   onError: (GraphQLError) => void,
-): { [variable: string]: unknown, ... } {
+): { [variable: string]: unknown } {
   const coercedValues = {};
   for (const varDefNode of varDefNodes) {
     const varName = varDefNode.variable.name.value;
@@ -160,8 +160,8 @@ function coerceVariableValues(
 export function getArgumentValues(
   def: GraphQLField<unknown, unknown> | GraphQLDirective,
   node: FieldNode | DirectiveNode,
-  variableValues?: ?ObjMap<unknown>,
-): { [argument: string]: unknown, ... } {
+  variableValues?: ObjMap<unknown>,
+): { [argument: string]: unknown } {
   const coercedValues = {};
 
   // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
@@ -245,9 +245,9 @@ export function getArgumentValues(
  */
 export function getDirectiveValues(
   directiveDef: GraphQLDirective,
-  node: { readonly directives?: ReadonlyArray<DirectiveNode>, ... },
+  node: { readonly directives?: ReadonlyArray<DirectiveNode> },
   variableValues?: Maybe<ObjMap<unknown>>,
-): void | { [argument: string]: unknown, ... } {
+): void | { [argument: string]: unknown } {
   // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
   const directiveNode = node.directives?.find(
     (directive) => directive.name.value === directiveDef.name,

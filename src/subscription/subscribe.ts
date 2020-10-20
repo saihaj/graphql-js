@@ -31,7 +31,7 @@ export type SubscriptionArgs = {
   document: DocumentNode,
   rootValue?: unknown,
   contextValue?: unknown,
-  variableValues?: Maybe<{ readonly [variable: string]: unknown, ... }>,
+  variableValues?: Maybe<{ readonly [variable: string]: unknown }>,
   operationName?: Maybe<string>,
   fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
   subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
@@ -158,7 +158,7 @@ export function createSourceEventStream(
   document: DocumentNode,
   rootValue?: unknown,
   contextValue?: unknown,
-  variableValues?: Maybe<{ readonly [variable: string]: unknown, ... }>,
+  variableValues?: Maybe<{ readonly [variable: string]: unknown }>,
   operationName?: Maybe<string>,
   fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>,
 ): Promise<AsyncIterable<unknown> | ExecutionResult> {
