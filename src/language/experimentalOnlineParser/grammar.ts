@@ -1,6 +1,6 @@
-export type GraphQLGrammarType = {|
+export type GraphQLGrammarType = {
   [name: string]: GraphQLGrammarRule,
-|};
+};
 export type GraphQLGrammarRuleName = string;
 export type GraphQLGrammarRuleConstraint =
   | GraphQLGrammarTokenConstraint

@@ -73,7 +73,7 @@ type OnlineParserRule =
   | PeekOnlineParserRule
   | ConstraintsSetOnlineParserRule;
 
-export type OnlineParserState = {|
+export type OnlineParserState = {
   rules: Array<OnlineParserRule>,
   kind: () => string,
   step: () => number,
@@ -81,27 +81,27 @@ export type OnlineParserState = {|
   indentLevel: number,
   name: string | null,
   type: string | null,
-|};
+};
 
-type Token = {|
+type Token = {
   kind: string,
   value: string,
   tokenName?: ?string,
   ruleName?: ?string,
-|};
+};
 
-type LexerToken = {|
+type LexerToken = {
   kind: string,
   value: ?string,
-|};
+};
 
-type OnlineParserConfig = {|
+type OnlineParserConfig = {
   tabSize: number,
-|};
+};
 
-type OnlineParserConfigOption = {|
+type OnlineParserConfigOption = {
   tabSize: ?number,
-|};
+};
 
 export class OnlineParser {
   state: OnlineParserState;
