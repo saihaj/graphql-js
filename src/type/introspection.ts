@@ -75,7 +75,7 @@ export const __Schema = new GraphQLObjectType({
         ),
         resolve: (schema) => schema.getDirectives(),
       },
-    }: GraphQLFieldConfigMap<GraphQLSchema, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLSchema, unknown>),
 });
 
 export const __Directive = new GraphQLObjectType({
@@ -108,7 +108,7 @@ export const __Directive = new GraphQLObjectType({
         ),
         resolve: (directive) => directive.args,
       },
-    }: GraphQLFieldConfigMap<GraphQLDirective, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLDirective, unknown>),
 });
 
 export const __DirectiveLocation = new GraphQLEnumType({
@@ -314,7 +314,7 @@ export const __Type = new GraphQLObjectType({
         resolve: (type) =>
           type.ofType !== undefined ? type.ofType : undefined,
       },
-    }: GraphQLFieldConfigMap<GraphQLType, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLType, unknown>),
 });
 
 export const __Field = new GraphQLObjectType({
@@ -359,7 +359,7 @@ export const __Field = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (field) => field.deprecationReason,
       },
-    }: GraphQLFieldConfigMap<GraphQLField<mixed, mixed>, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLField<unknown, unknown>, unknown>),
 });
 
 export const __InputValue = new GraphQLObjectType({
@@ -398,7 +398,7 @@ export const __InputValue = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (obj) => obj.deprecationReason,
       },
-    }: GraphQLFieldConfigMap<GraphQLInputField, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLInputField, unknown>),
 });
 
 export const __EnumValue = new GraphQLObjectType({
@@ -423,7 +423,7 @@ export const __EnumValue = new GraphQLObjectType({
         type: GraphQLString,
         resolve: (enumValue) => enumValue.deprecationReason,
       },
-    }: GraphQLFieldConfigMap<GraphQLEnumValue, mixed>),
+    }: GraphQLFieldConfigMap<GraphQLEnumValue, unknown>),
 });
 
 export const TypeKind = Object.freeze({
@@ -487,7 +487,7 @@ export const __TypeKind = new GraphQLEnumType({
  * so the format for args is different.
  */
 
-export const SchemaMetaFieldDef: GraphQLField<mixed, mixed> = {
+export const SchemaMetaFieldDef: GraphQLField<unknown, unknown> = {
   name: '__schema',
   type: new GraphQLNonNull(__Schema),
   description: 'Access the current type schema of this server.',
@@ -498,7 +498,7 @@ export const SchemaMetaFieldDef: GraphQLField<mixed, mixed> = {
   astNode: undefined,
 };
 
-export const TypeMetaFieldDef: GraphQLField<mixed, mixed> = {
+export const TypeMetaFieldDef: GraphQLField<unknown, unknown> = {
   name: '__type',
   type: __Type,
   description: 'Request the type information of a single type.',
@@ -519,7 +519,7 @@ export const TypeMetaFieldDef: GraphQLField<mixed, mixed> = {
   astNode: undefined,
 };
 
-export const TypeNameMetaFieldDef: GraphQLField<mixed, mixed> = {
+export const TypeNameMetaFieldDef: GraphQLField<unknown, unknown> = {
   name: '__typename',
   type: new GraphQLNonNull(GraphQLString),
   description: 'The name of the current Object type at runtime.',

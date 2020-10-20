@@ -2,10 +2,10 @@
  * Memoizes the provided three-argument function.
  */
 export function memoize3<
-  A1: { ... } | ReadonlyArray<mixed>,
-  A2: { ... } | ReadonlyArray<mixed>,
-  A3: { ... } | ReadonlyArray<mixed>,
-  R: mixed,
+  A1: { ... } | ReadonlyArray<unknown>,
+  A2: { ... } | ReadonlyArray<unknown>,
+  A3: { ... } | ReadonlyArray<unknown>,
+  R: unknown,
 >(fn: (A1, A2, A3) => R): (A1, A2, A3) => R {
   let cache0;
 

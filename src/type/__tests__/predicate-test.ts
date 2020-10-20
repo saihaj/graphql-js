@@ -296,7 +296,7 @@ describe('Type predicates', () => {
   });
 
   describe('isInputType', () => {
-    function expectInputType(type: mixed) {
+    function expectInputType(type: unknown) {
       expect(isInputType(type)).to.equal(true);
       expect(() => assertInputType(type)).to.not.throw();
     }
@@ -317,7 +317,7 @@ describe('Type predicates', () => {
       expectInputType(new GraphQLNonNull(InputObjectType));
     });
 
-    function expectNonInputType(type: mixed) {
+    function expectNonInputType(type: unknown) {
       expect(isInputType(type)).to.equal(false);
       expect(() => assertInputType(type)).to.throw();
     }
@@ -340,7 +340,7 @@ describe('Type predicates', () => {
   });
 
   describe('isOutputType', () => {
-    function expectOutputType(type: mixed) {
+    function expectOutputType(type: unknown) {
       expect(isOutputType(type)).to.equal(true);
       expect(() => assertOutputType(type)).to.not.throw();
     }
@@ -367,7 +367,7 @@ describe('Type predicates', () => {
       expectOutputType(new GraphQLNonNull(EnumType));
     });
 
-    function expectNonOutputType(type: mixed) {
+    function expectNonOutputType(type: unknown) {
       expect(isOutputType(type)).to.equal(false);
       expect(() => assertOutputType(type)).to.throw();
     }

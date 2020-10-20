@@ -46,8 +46,8 @@ export class TypeInfo {
   _typeStack: Array<?GraphQLOutputType>;
   _parentTypeStack: Array<?GraphQLCompositeType>;
   _inputTypeStack: Array<?GraphQLInputType>;
-  _fieldDefStack: Array<?GraphQLField<mixed, mixed>>;
-  _defaultValueStack: Array<?mixed>;
+  _fieldDefStack: Array<?GraphQLField<unknown, unknown>>;
+  _defaultValueStack: Array<?unknown>;
   _directive: ?GraphQLDirective;
   _argument: ?GraphQLArgument;
   _enumValue: ?GraphQLEnumValue;
@@ -110,13 +110,13 @@ export class TypeInfo {
     }
   }
 
-  getFieldDef(): ?GraphQLField<mixed, mixed> {
+  getFieldDef(): ?GraphQLField<unknown, unknown> {
     if (this._fieldDefStack.length > 0) {
       return this._fieldDefStack[this._fieldDefStack.length - 1];
     }
   }
 
-  getDefaultValue(): ?mixed {
+  getDefaultValue(): ?unknown {
     if (this._defaultValueStack.length > 0) {
       return this._defaultValueStack[this._defaultValueStack.length - 1];
     }
@@ -136,13 +136,13 @@ export class TypeInfo {
 
   enter(node: ASTNode) {
     const schema = this._schema;
-    // Note: many of the types below are explicitly typed as "mixed" to drop
+    // Note: many of the types below are explicitly typed as "unknown" to drop
     // any assumptions of a valid schema to ensure runtime types are properly
     // checked before continuing since TypeInfo is used as part of validation
     // which occurs before guarantees of schema and document validity.
     switch (node.kind) {
       case Kind.SELECTION_SET: {
-        const namedType: mixed = getNamedType(this.getType());
+        const namedType: unknown = getNamedType(this.getType());
         this._parentTypeStack.push(
           isCompositeType(namedType) ? namedType : undefined,
         );
@@ -151,7 +151,7 @@ export class TypeInfo {
       case Kind.FIELD: {
         const parentType = this.getParentType();
         let fieldDef;
-        let fieldType: mixed;
+        let fieldType: unknown;
         if (parentType) {
           fieldDef = this._getFieldDef(schema, parentType, node);
           if (fieldDef) {
@@ -166,7 +166,7 @@ export class TypeInfo {
         this._directive = schema.getDirective(node.name.value);
         break;
       case Kind.OPERATION_DEFINITION: {
-        let type: mixed;
+        let type: unknown;
         switch (node.operation) {
           case 'query':
             type = schema.getQueryType();
@@ -184,14 +184,14 @@ export class TypeInfo {
       case Kind.INLINE_FRAGMENT:
       case Kind.FRAGMENT_DEFINITION: {
         const typeConditionAST = node.typeCondition;
-        const outputType: mixed = typeConditionAST
+        const outputType: unknown = typeConditionAST
           ? typeFromAST(schema, typeConditionAST)
           : getNamedType(this.getType());
         this._typeStack.push(isOutputType(outputType) ? outputType : undefined);
         break;
       }
       case Kind.VARIABLE_DEFINITION: {
-        const inputType: mixed = typeFromAST(schema, node.type);
+        const inputType: unknown = typeFromAST(schema, node.type);
         this._inputTypeStack.push(
           isInputType(inputType) ? inputType : undefined,
         );
@@ -199,7 +199,7 @@ export class TypeInfo {
       }
       case Kind.ARGUMENT: {
         let argDef;
-        let argType: mixed;
+        let argType: unknown;
         const fieldOrDirective = this.getDirective() ?? this.getFieldDef();
         if (fieldOrDirective) {
           argDef = fieldOrDirective.args.find(
@@ -215,8 +215,8 @@ export class TypeInfo {
         break;
       }
       case Kind.LIST: {
-        const listType: mixed = getNullableType(this.getInputType());
-        const itemType: mixed = isListType(listType)
+        const listType: unknown = getNullableType(this.getInputType());
+        const itemType: unknown = isListType(listType)
           ? listType.ofType
           : listType;
         // List positions never have a default value.
@@ -225,7 +225,7 @@ export class TypeInfo {
         break;
       }
       case Kind.OBJECT_FIELD: {
-        const objectType: mixed = getNamedType(this.getInputType());
+        const objectType: unknown = getNamedType(this.getInputType());
         let inputFieldType: GraphQLInputType | void;
         let inputField: GraphQLInputField | void;
         if (isInputObjectType(objectType)) {
@@ -243,7 +243,7 @@ export class TypeInfo {
         break;
       }
       case Kind.ENUM: {
-        const enumType: mixed = getNamedType(this.getInputType());
+        const enumType: unknown = getNamedType(this.getInputType());
         let enumValue;
         if (isEnumType(enumType)) {
           enumValue = enumType.getValue(node.value);
@@ -300,7 +300,7 @@ function getFieldDef(
   schema: GraphQLSchema,
   parentType: GraphQLType,
   fieldNode: FieldNode,
-): ?GraphQLField<mixed, mixed> {
+): ?GraphQLField<unknown, unknown> {
   const name = fieldNode.name.value;
   if (
     name === SchemaMetaFieldDef.name &&
