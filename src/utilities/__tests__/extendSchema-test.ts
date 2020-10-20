@@ -60,7 +60,7 @@ function printSchemaChanges(
   });
 }
 
-function printASTNode(obj: Maybe<{ readonly astNode: Maybe<ASTNode>, ... }>): string {
+function printASTNode(obj: Maybe<{ readonly astNode: Maybe<ASTNode> }>): string {
   invariant(obj?.astNode != null);
   return print(obj.astNode);
 }

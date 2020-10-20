@@ -201,7 +201,7 @@ function validateDirectives(context: SchemaValidationContext): void {
 
 function validateName(
   context: SchemaValidationContext,
-  node: { readonly name: string, readonly astNode: Maybe<ASTNode>, ... },
+  node: { readonly name: string, readonly astNode: Maybe<ASTNode> },
 ): void {
   // Ensure names are valid, however introspection types opt out.
   const error = isValidNameError(node.name);
@@ -613,9 +613,8 @@ function createInputObjectCircularRefsValidator(
 }
 
 type SDLDefinedObject<T, K> = {
-  +astNode: Maybe<T>,
-  +extensionASTNodes?: Maybe<ReadonlyArray<K>>,
-  ...
+  readonly astNode: Maybe<T>,
+  readonly extensionASTNodes?: Maybe<ReadonlyArray<K>>,  
 };
 
 function getAllNodes<T: ASTNode, K: ASTNode>(
@@ -660,7 +659,7 @@ function getUnionMemberTypeNodes(
 }
 
 function getDeprecatedDirectiveNode(
-  definitionNode: ?{ readonly directives?: ReadonlyArray<DirectiveNode>, ... },
+  definitionNode: ?{ readonly directives?: ReadonlyArray<DirectiveNode> },
 ): ?DirectiveNode {
   // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
   return definitionNode?.directives?.find(
