@@ -1,3 +1,5 @@
+import { Maybe } from '../jsutils/Maybe';
+
 import type { ASTNode } from './ast';
 
 import { visit } from './visitor';
@@ -257,7 +259,7 @@ function addDescription(cb) {
  * Given maybeArray, print an empty string if it is null or empty, otherwise
  * print all items together separated by separator if provided
  */
-function join(maybeArray: ?Array<string>, separator = ''): string {
+function join(maybeArray: Maybe<Array<string>>, separator = ''): string {
   return maybeArray?.filter((x) => x).join(separator) ?? '';
 }
 
@@ -265,14 +267,18 @@ function join(maybeArray: ?Array<string>, separator = ''): string {
  * Given array, print each item on its own line, wrapped in an
  * indented "{ }" block.
  */
-function block(array: ?Array<string>): string {
+function block(array: Maybe<Array<string>>): string {
   return wrap('{\n', indent(join(array, '\n')), '\n}');
 }
 
 /**
  * If maybeString is not null or empty, then wrap with start and end, otherwise print an empty string.
  */
-function wrap(start: string, maybeString: ?string, end: string = ''): string {
+function wrap(
+  start: string,
+  maybeString: Maybe<string>,
+  end: string = '',
+): string {
   return maybeString != null && maybeString !== ''
     ? start + maybeString + end
     : '';
@@ -286,6 +292,6 @@ function isMultiline(str: string): boolean {
   return str.indexOf('\n') !== -1;
 }
 
-function hasMultilineItems(maybeArray: ?Array<string>): boolean {
+function hasMultilineItems(maybeArray: Maybe<Array<string>>): boolean {
   return maybeArray != null && maybeArray.some(isMultiline);
 }

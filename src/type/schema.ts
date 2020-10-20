@@ -10,6 +10,7 @@ import { toObjMap } from '../jsutils/toObjMap';
 import { devAssert } from '../jsutils/devAssert';
 import instanceOf from '../jsutils/instanceOf';
 import { isObjectLike } from '../jsutils/isObjectLike';
+import { Maybe } from '../jsutils/Maybe';
 
 import type { GraphQLError } from '../error/GraphQLError';
 
@@ -120,14 +121,14 @@ export function assertSchema(schema: unknown): GraphQLSchema {
  *
  */
 export class GraphQLSchema {
-  description: ?string;
-  extensions: ?ReadOnlyObjMap<unknown>;
-  astNode: ?SchemaDefinitionNode;
-  extensionASTNodes: ?ReadonlyArray<SchemaExtensionNode>;
+  description: Maybe<string>;
+  extensions: Maybe<ReadOnlyObjMap<unknown>>;
+  astNode: Maybe<SchemaDefinitionNode>;
+  extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 
-  _queryType: ?GraphQLObjectType;
-  _mutationType: ?GraphQLObjectType;
-  _subscriptionType: ?GraphQLObjectType;
+  _queryType: Maybe<GraphQLObjectType>;
+  _mutationType: Maybe<GraphQLObjectType>;
+  _subscriptionType: Maybe<GraphQLObjectType>;
   _directives: ReadonlyArray<GraphQLDirective>;
   _typeMap: TypeMap;
   _subTypeMap: ObjMap<ObjMap<boolean>>;
@@ -137,7 +138,7 @@ export class GraphQLSchema {
   }>;
 
   // Used as a cache for validateSchema().
-  __validationErrors: ?ReadonlyArray<GraphQLError>;
+  __validationErrors: Maybe<ReadonlyArray<GraphQLError>>;
 
   constructor(config: $ReadOnly<GraphQLSchemaConfig>) {
     // If this schema was built from a source known to be valid, then it may be
@@ -256,15 +257,15 @@ export class GraphQLSchema {
     }
   }
 
-  getQueryType(): ?GraphQLObjectType {
+  getQueryType(): Maybe<GraphQLObjectType> {
     return this._queryType;
   }
 
-  getMutationType(): ?GraphQLObjectType {
+  getMutationType(): Maybe<GraphQLObjectType> {
     return this._mutationType;
   }
 
-  getSubscriptionType(): ?GraphQLObjectType {
+  getSubscriptionType(): Maybe<GraphQLObjectType> {
     return this._subscriptionType;
   }
 
@@ -272,7 +273,7 @@ export class GraphQLSchema {
     return this._typeMap;
   }
 
-  getType(name: string): ?GraphQLNamedType {
+  getType(name: string): Maybe<GraphQLNamedType> {
     return this.getTypeMap()[name];
   }
 
@@ -325,7 +326,7 @@ export class GraphQLSchema {
     return this._directives;
   }
 
-  getDirective(name: string): ?GraphQLDirective {
+  getDirective(name: string): Maybe<GraphQLDirective> {
     return this.getDirectives().find((directive) => directive.name === name);
   }
 
@@ -364,15 +365,15 @@ export type GraphQLSchemaValidationOptions = {
 };
 
 export type GraphQLSchemaConfig = {
-  description?: ?string,
-  query?: ?GraphQLObjectType,
-  mutation?: ?GraphQLObjectType,
-  subscription?: ?GraphQLObjectType,
-  types?: ?Array<GraphQLNamedType>,
-  directives?: ?Array<GraphQLDirective>,
-  extensions?: ?ReadOnlyObjMapLike<unknown>,
-  astNode?: ?SchemaDefinitionNode,
-  extensionASTNodes?: ?ReadonlyArray<SchemaExtensionNode>,
+  description?: Maybe<string>,
+  query?: Maybe<GraphQLObjectType>,
+  mutation?: Maybe<GraphQLObjectType>,
+  subscription?: Maybe<GraphQLObjectType>,
+  types?: Maybe<Array<GraphQLNamedType>>,
+  directives?: Maybe<Array<GraphQLDirective>>,
+  extensions?: Maybe<ReadOnlyObjMapLike<unknown>>,
+  astNode?: Maybe<SchemaDefinitionNode>,
+  extensionASTNodes?: Maybe<ReadonlyArray<SchemaExtensionNode>>,
   ...GraphQLSchemaValidationOptions,
 };
 
@@ -381,10 +382,10 @@ export type GraphQLSchemaConfig = {
  */
 export type GraphQLSchemaNormalizedConfig = {
   ...GraphQLSchemaConfig,
-  description: ?string,
+  description: Maybe<string>,
   types: Array<GraphQLNamedType>,
   directives: Array<GraphQLDirective>,
-  extensions: ?ReadOnlyObjMap<unknown>,
+  extensions: Maybe<ReadOnlyObjMap<unknown>>,
   extensionASTNodes: ReadonlyArray<SchemaExtensionNode>,
   assumeValid: boolean,
 };

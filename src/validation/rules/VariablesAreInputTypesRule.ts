@@ -9,6 +9,7 @@ import { isInputType } from '../../type/definition';
 import { typeFromAST } from '../../utilities/typeFromAST';
 
 import type { ValidationContext } from '../ValidationContext';
+import { Maybe } from '../../jsutils/Maybe';
 
 /**
  * Variables are input types
@@ -20,7 +21,7 @@ export function VariablesAreInputTypesRule(
   context: ValidationContext,
 ): ASTVisitor {
   return {
-    VariableDefinition(node: VariableDefinitionNode): ?GraphQLError {
+    VariableDefinition(node: VariableDefinitionNode): Maybe<GraphQLError> {
       const type = typeFromAST(context.getSchema(), node.type);
 
       if (type && !isInputType(type)) {

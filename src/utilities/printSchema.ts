@@ -2,6 +2,7 @@ import objectValues from '../polyfills/objectValues';
 
 import { inspect } from '../jsutils/inspect';
 import { invariant } from '../jsutils/invariant';
+import { Maybe } from '../jsutils/Maybe';
 
 import { print } from '../language/printer';
 import { printBlockString } from '../language/blockString';
@@ -71,7 +72,7 @@ function printFilteredSchema(
   );
 }
 
-function printSchemaDefinition(schema: GraphQLSchema): ?string {
+function printSchemaDefinition(schema: GraphQLSchema): Maybe<string> {
   if (schema.description == null && isSchemaOfCommonNames(schema)) {
     return;
   }
@@ -281,7 +282,7 @@ function printDirective(directive: GraphQLDirective): string {
   );
 }
 
-function printDeprecated(reason: ?string): string {
+function printDeprecated(reason: Maybe<string>): string {
   if (reason == null) {
     return '';
   }
@@ -306,7 +307,7 @@ function printSpecifiedByUrl(scalar: GraphQLScalarType): string {
 }
 
 function printDescription(
-  def: { readonly description: ?string, ... },
+  def: { readonly description: Maybe<string>, ... },
   indentation: string = '',
   firstInBlock: boolean = true,
 ): string {

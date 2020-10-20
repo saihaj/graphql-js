@@ -1,4 +1,5 @@
 import { devAssert } from '../jsutils/devAssert';
+import { Maybe } from '../jsutils/Maybe';
 
 import { GraphQLError } from '../error/GraphQLError';
 
@@ -80,7 +81,7 @@ export function validate(
  */
 export function validateSDL(
   documentAST: DocumentNode,
-  schemaToExtend?: ?GraphQLSchema,
+  schemaToExtend?: Maybe<GraphQLSchema>,
   rules: ReadonlyArray<SDLValidationRule> = specifiedSDLRules,
 ): ReadonlyArray<GraphQLError> {
   const errors = [];

@@ -1,4 +1,5 @@
 import { inspect } from '../jsutils/inspect';
+import { Maybe } from '../jsutils/Maybe';
 
 import type { ASTNode, ASTKindToNode } from './ast';
 import { isNode } from './ast';
@@ -405,7 +406,7 @@ export function getVisitFn(
   visitor: Visitor<any>,
   kind: string,
   isLeaving: boolean,
-): ?VisitFn<any> {
+): Maybe<VisitFn<any>> {
   const kindVisitor = visitor[kind];
   if (kindVisitor) {
     if (!isLeaving && typeof kindVisitor === 'function') {

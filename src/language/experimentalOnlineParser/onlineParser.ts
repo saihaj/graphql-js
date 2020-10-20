@@ -1,3 +1,5 @@
+import { Maybe } from '../../jsutils/Maybe';
+
 import { Lexer } from '../lexer';
 import { Source } from '../source';
 
@@ -86,13 +88,13 @@ export type OnlineParserState = {
 type Token = {
   kind: string,
   value: string,
-  tokenName?: ?string,
-  ruleName?: ?string,
+  tokenName?: Maybe<string>,
+  ruleName?: Maybe<string>,
 };
 
 type LexerToken = {
   kind: string,
-  value: ?string,
+  value: Maybe<string>,
 };
 
 type OnlineParserConfig = {
@@ -100,7 +102,7 @@ type OnlineParserConfig = {
 };
 
 type OnlineParserConfigOption = {
-  tabSize: ?number,
+  tabSize: Maybe<number>,
 };
 
 export class OnlineParser {
@@ -452,7 +454,7 @@ export class OnlineParser {
     return this.state.rules[this.state.rules.length - 1] || null;
   }
 
-  _popMatchedRule(token: ?Token) {
+  _popMatchedRule(token: Maybe<Token>) {
     const rule = this.state.rules.pop();
     if (!rule) {
       return;

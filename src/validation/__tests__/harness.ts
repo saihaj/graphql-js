@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { Maybe } from '../../jsutils/Maybe';
 
 import { parse } from '../../language/parser';
 
@@ -160,7 +161,7 @@ export function expectValidationErrors(
 }
 
 export function expectSDLValidationErrors(
-  schema: ?GraphQLSchema,
+  schema: Maybe<GraphQLSchema>,
   rule: SDLValidationRule,
   sdlStr: string,
 ): any {

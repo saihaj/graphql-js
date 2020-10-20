@@ -17,6 +17,7 @@ import {
   isListType,
   isNonNullType,
 } from '../type/definition';
+import { Maybe } from '../jsutils/Maybe';
 
 /**
  * Produces a GraphQL Value AST given a JavaScript object.
@@ -39,7 +40,7 @@ import {
  * | null          | NullValue            |
  *
  */
-export function astFromValue(value: unknown, type: GraphQLInputType): ?ValueNode {
+export function astFromValue(value: unknown, type: GraphQLInputType): Maybe<ValueNode> {
   if (isNonNullType(type)) {
     const astValue = astFromValue(value, type.ofType);
     if (astValue?.kind === Kind.NULL) {

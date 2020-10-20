@@ -1,7 +1,9 @@
+import { Maybe } from '../jsutils/Maybe';
+
 /**
  * Special inspect function to produce readable string literal for error messages in tests
  */
-export default function inspectStr(str: ?string): string {
+export default function inspectStr(str: Maybe<string>): string {
   if (str == null) {
     return 'null';
   }

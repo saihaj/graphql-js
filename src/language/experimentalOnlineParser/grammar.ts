@@ -1,3 +1,5 @@
+import { Maybe } from "../../jsutils/Maybe";
+
 export type GraphQLGrammarType = {
   [name: string]: GraphQLGrammarRule,
 };
@@ -16,8 +18,8 @@ export type GraphQLGrammarRule =
   | GraphQLGrammarConstraintsSet;
 export interface GraphQLGrammarBaseRuleConstraint {
   butNot?:
-    | ?GraphQLGrammarTokenConstraint
-    | ?Array<GraphQLGrammarTokenConstraint>;
+    | Maybe<GraphQLGrammarTokenConstraint>
+    | Maybe<Array<GraphQLGrammarTokenConstraint>>;
   optional?: boolean;
   eatNextOnFail?: boolean;
 }
@@ -44,8 +46,8 @@ export interface GraphQLGrammarTokenConstraint
     | 'String'
     | 'BlockString'
     | 'Comment';
-  ofValue?: ?string;
-  oneOf?: ?Array<string>;
+  ofValue?: Maybe<string>;
+  oneOf?: Maybe<Array<string>>;
   tokenName?: string;
   definitionName?: boolean;
   typeName?: boolean;
