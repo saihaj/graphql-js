@@ -28,9 +28,9 @@ import mapAsyncIterator from './mapAsyncIterator';
 export type SubscriptionArgs = {
   schema: GraphQLSchema,
   document: DocumentNode,
-  rootValue?: mixed,
-  contextValue?: mixed,
-  variableValues?: ?{ readonly [variable: string]: mixed, ... },
+  rootValue?: unknown,
+  contextValue?: unknown,
+  variableValues?: ?{ readonly [variable: string]: unknown, ... },
   operationName?: ?string,
   fieldResolver?: ?GraphQLFieldResolver<any, any>,
   subscribeFieldResolver?: ?GraphQLFieldResolver<any, any>,
@@ -117,7 +117,7 @@ export function subscribe(
  * an ExecutionResult, containing only errors and no data. Otherwise treat the
  * error as a system-class error and re-throw it.
  */
-function reportGraphQLError(error: mixed): ExecutionResult {
+function reportGraphQLError(error: unknown): ExecutionResult {
   if (error instanceof GraphQLError) {
     return { errors: [error] };
   }
@@ -155,12 +155,12 @@ function reportGraphQLError(error: mixed): ExecutionResult {
 export function createSourceEventStream(
   schema: GraphQLSchema,
   document: DocumentNode,
-  rootValue?: mixed,
-  contextValue?: mixed,
-  variableValues?: ?{ readonly [variable: string]: mixed, ... },
+  rootValue?: unknown,
+  contextValue?: unknown,
+  variableValues?: ?{ readonly [variable: string]: unknown, ... },
   operationName?: ?string,
   fieldResolver?: ?GraphQLFieldResolver<any, any>,
-): Promise<AsyncIterable<mixed> | ExecutionResult> {
+): Promise<AsyncIterable<unknown> | ExecutionResult> {
   // If arguments are missing or incorrectly typed, this is an internal
   // developer mistake which should throw an early error.
   assertValidExecutionArguments(schema, document, variableValues);
@@ -189,7 +189,7 @@ export function createSourceEventStream(
 
 function executeSubscription(
   exeContext: ExecutionContext,
-): Promise<AsyncIterable<mixed>> {
+): Promise<AsyncIterable<unknown>> {
   const { schema, operation, variableValues, rootValue } = exeContext;
   const type = getOperationRootType(schema, operation);
   const fields = collectFields(

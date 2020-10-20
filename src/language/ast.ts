@@ -45,7 +45,7 @@ export class Location {
 
   // @deprecated: Will be removed in v17
   // $FlowFixMe[unsupported-syntax] Flow doesn't support computed properties yet
-  [Symbol.for('nodejs.util.inspect.custom')](): mixed {
+  [Symbol.for('nodejs.util.inspect.custom')](): unknown {
     return this.toJSON();
   }
 }
@@ -128,7 +128,7 @@ export class Token {
 
   // @deprecated: Will be removed in v17
   // $FlowFixMe[unsupported-syntax] Flow doesn't support computed properties yet
-  [Symbol.for('nodejs.util.inspect.custom')](): mixed {
+  [Symbol.for('nodejs.util.inspect.custom')](): unknown {
     return this.toJSON();
   }
 }
@@ -136,7 +136,7 @@ export class Token {
 /**
  * @internal
  */
-export function isNode(maybeNode: mixed): boolean %checks {
+export function isNode(maybeNode: unknown): boolean %checks {
   return maybeNode != null && typeof maybeNode.kind === 'string';
 }
 

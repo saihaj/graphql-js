@@ -4,7 +4,7 @@ import isObjectLike from '../../jsutils/isObjectLike';
  * Deeply transforms an arbitrary value to a JSON-safe value by calling toJSON
  * on any nested value which defines it.
  */
-export default function toJSONDeep(value: mixed): mixed {
+export default function toJSONDeep(value: unknown): unknown {
   if (!isObjectLike(value)) {
     return value;
   }

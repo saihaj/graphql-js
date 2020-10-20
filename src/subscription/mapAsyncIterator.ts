@@ -16,7 +16,7 @@ export default function mapAsyncIterator<T, U>(
   let abruptClose;
   if (typeof iterator.return === 'function') {
     $return = iterator.return;
-    abruptClose = (error: mixed) => {
+    abruptClose = (error: unknown) => {
       const rethrow = () => Promise.reject(error);
       return $return.call(iterator).then(rethrow, rethrow);
     };
@@ -32,7 +32,7 @@ export default function mapAsyncIterator<T, U>(
   if (rejectCallback) {
     // Capture rejectCallback to ensure it cannot be null.
     const reject = rejectCallback;
-    mapReject = (error: mixed) =>
+    mapReject = (error: unknown) =>
       asyncMapValue(error, reject).then(iteratorResult, abruptClose);
   }
 
@@ -47,7 +47,7 @@ export default function mapAsyncIterator<T, U>(
         ? $return.call(iterator).then(mapResult, mapReject)
         : Promise.resolve({ value: undefined, done: true });
     },
-    throw(error?: mixed): Promise<IteratorResult<U, void>> {
+    throw(error?: unknown): Promise<IteratorResult<U, void>> {
       if (typeof iterator.throw === 'function') {
         return iterator.throw(error).then(mapResult, mapReject);
       }

@@ -22,14 +22,14 @@ import { argsToArgsConfig, GraphQLNonNull } from './definition';
  * Test if the given value is a GraphQL directive.
  */
 declare function isDirective(
-  directive: mixed,
+  directive: unknown,
 ): boolean %checks(directive instanceof GraphQLDirective);
 // eslint-disable-next-line no-redeclare
 export function isDirective(directive) {
   return instanceOf(directive, GraphQLDirective);
 }
 
-export function assertDirective(directive: mixed): GraphQLDirective {
+export function assertDirective(directive: unknown): GraphQLDirective {
   if (!isDirective(directive)) {
     throw new Error(
       `Expected ${inspect(directive)} to be a GraphQL directive.`,
@@ -48,7 +48,7 @@ export class GraphQLDirective {
   locations: Array<DirectiveLocationEnum>;
   args: Array<GraphQLArgument>;
   isRepeatable: boolean;
-  extensions: ?ReadOnlyObjMap<mixed>;
+  extensions: ?ReadOnlyObjMap<unknown>;
   astNode: ?DirectiveDefinitionNode;
 
   constructor(config: $ReadOnly<GraphQLDirectiveConfig>): void {
@@ -86,7 +86,7 @@ export class GraphQLDirective {
     ...GraphQLDirectiveConfig,
     args: GraphQLFieldConfigArgumentMap,
     isRepeatable: boolean,
-    extensions: ?ReadOnlyObjMap<mixed>,
+    extensions: ?ReadOnlyObjMap<unknown>,
   } {
     return {
       name: this.name,
@@ -119,7 +119,7 @@ export type GraphQLDirectiveConfig = {
   locations: Array<DirectiveLocationEnum>,
   args?: ?GraphQLFieldConfigArgumentMap,
   isRepeatable?: ?boolean,
-  extensions?: ?ReadOnlyObjMapLike<mixed>,
+  extensions?: ?ReadOnlyObjMapLike<unknown>,
   astNode?: ?DirectiveDefinitionNode,
 };
 

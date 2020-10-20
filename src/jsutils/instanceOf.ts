@@ -3,8 +3,8 @@
  * constructors are detected.
  */
 declare function instanceOf(
-  value: mixed,
-  constructor: mixed,
+  value: unknown,
+  constructor: unknown,
 ): boolean %checks(value instanceof constructor);
 
 // See: https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production
@@ -12,7 +12,7 @@ declare function instanceOf(
 export default process.env.NODE_ENV === 'production'
   ? // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2317')
     // eslint-disable-next-line no-shadow
-    function instanceOf(value: mixed, constructor: mixed): boolean {
+    function instanceOf(value: unknown, constructor: unknown): boolean {
       return value instanceof constructor;
     }
   : // eslint-disable-next-line no-shadow

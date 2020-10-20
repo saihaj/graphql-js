@@ -22,7 +22,7 @@ import {
 
 type OnErrorCB = (
   path: ReadonlyArray<string | number>,
-  invalidValue: mixed,
+  invalidValue: unknown,
   error: GraphQLError,
 ) => void;
 
@@ -30,16 +30,16 @@ type OnErrorCB = (
  * Coerces a JavaScript value given a GraphQL Input Type.
  */
 export function coerceInputValue(
-  inputValue: mixed,
+  inputValue: unknown,
   type: GraphQLInputType,
   onError?: OnErrorCB = defaultOnError,
-): mixed {
+): unknown {
   return coerceInputValueImpl(inputValue, type, onError);
 }
 
 function defaultOnError(
   path: ReadonlyArray<string | number>,
-  invalidValue: mixed,
+  invalidValue: unknown,
   error: GraphQLError,
 ): void {
   let errorPrefix = 'Invalid value ' + inspect(invalidValue);
@@ -51,11 +51,11 @@ function defaultOnError(
 }
 
 function coerceInputValueImpl(
-  inputValue: mixed,
+  inputValue: unknown,
   type: GraphQLInputType,
   onError: OnErrorCB,
   path: Path | void,
-): mixed {
+): unknown {
   if (isNonNullType(type)) {
     if (inputValue != null) {
       return coerceInputValueImpl(inputValue, type.ofType, onError, path);
