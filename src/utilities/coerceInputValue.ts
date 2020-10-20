@@ -21,7 +21,7 @@ import {
 } from '../type/definition';
 
 type OnErrorCB = (
-  path: $ReadOnlyArray<string | number>,
+  path: ReadonlyArray<string | number>,
   invalidValue: mixed,
   error: GraphQLError,
 ) => void;
@@ -38,7 +38,7 @@ export function coerceInputValue(
 }
 
 function defaultOnError(
-  path: $ReadOnlyArray<string | number>,
+  path: ReadonlyArray<string | number>,
   invalidValue: mixed,
   error: GraphQLError,
 ): void {

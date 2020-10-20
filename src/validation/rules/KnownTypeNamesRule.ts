@@ -75,7 +75,7 @@ function isStandardTypeName(typeName: string): boolean {
   return standardTypeNames.indexOf(typeName) !== -1;
 }
 
-function isSDLNode(value: ASTNode | $ReadOnlyArray<ASTNode>): boolean {
+function isSDLNode(value: ASTNode | ReadonlyArray<ASTNode>): boolean {
   return (
     !Array.isArray(value) &&
     (isTypeSystemDefinitionNode(value) || isTypeSystemExtensionNode(value))
