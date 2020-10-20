@@ -59,7 +59,7 @@ function printSchemaChanges(
   });
 }
 
-function printASTNode(obj: ?{ +astNode: ?ASTNode, ... }): string {
+function printASTNode(obj: ?{ readonly astNode: ?ASTNode, ... }): string {
   invariant(obj?.astNode != null);
   return print(obj.astNode);
 }

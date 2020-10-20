@@ -917,16 +917,16 @@ export type GraphQLFieldResolver<
 ) => mixed;
 
 export type GraphQLResolveInfo = {
-  +fieldName: string,
-  +fieldNodes: ReadonlyArray<FieldNode>,
-  +returnType: GraphQLOutputType,
-  +parentType: GraphQLObjectType,
-  +path: Path,
-  +schema: GraphQLSchema,
-  +fragments: ObjMap<FragmentDefinitionNode>,
-  +rootValue: mixed,
-  +operation: OperationDefinitionNode,
-  +variableValues: { [variable: string]: mixed, ... },
+  readonly fieldName: string,
+  readonly fieldNodes: ReadonlyArray<FieldNode>,
+  readonly returnType: GraphQLOutputType,
+  readonly parentType: GraphQLObjectType,
+  readonly path: Path,
+  readonly schema: GraphQLSchema,
+  readonly fragments: ObjMap<FragmentDefinitionNode>,
+  readonly rootValue: mixed,
+  readonly operation: OperationDefinitionNode,
+  readonly variableValues: { [variable: string]: mixed, ... },
 };
 
 export type GraphQLFieldConfig<

@@ -1,1 +1,1 @@
-export type PromiseOrValue<+T> = Promise<T> | T;
+export type PromiseOrValue<readonly T> = Promise<T> | T;
