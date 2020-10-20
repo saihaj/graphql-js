@@ -17,7 +17,7 @@ export type Visitor<KindToNode, Nodes = $Values<KindToNode>> =
       KindToNode,
       <Node>(Node) => VisitFn<Nodes, Node> | EnterLeave<VisitFn<Nodes, Node>>,
     >;
-type EnterLeave<T> = {| +enter?: T, +leave?: T |};
+type EnterLeave<T> = { +enter?: T, +leave?: T };
 type ShapeMap<O, F> = $Shape<$ObjMap<O, F>>;
 
 /**

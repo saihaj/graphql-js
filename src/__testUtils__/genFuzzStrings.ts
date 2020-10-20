@@ -1,10 +1,10 @@
 /**
  * Generator that produces all possible combinations of allowed characters.
  */
-export default function* genFuzzStrings(options: {|
+export default function* genFuzzStrings(options: {
   allowedChars: Array<string>,
   maxLength: number,
-|}): Generator<string, void, void> {
+}): Generator<string, void, void> {
   const { allowedChars, maxLength } = options;
   const numAllowedChars = allowedChars.length;
 
