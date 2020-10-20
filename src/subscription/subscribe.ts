@@ -30,7 +30,7 @@ export type SubscriptionArgs = {
   document: DocumentNode,
   rootValue?: mixed,
   contextValue?: mixed,
-  variableValues?: ?{ +[variable: string]: mixed, ... },
+  variableValues?: ?{ readonly [variable: string]: mixed, ... },
   operationName?: ?string,
   fieldResolver?: ?GraphQLFieldResolver<any, any>,
   subscribeFieldResolver?: ?GraphQLFieldResolver<any, any>,
@@ -157,7 +157,7 @@ export function createSourceEventStream(
   document: DocumentNode,
   rootValue?: mixed,
   contextValue?: mixed,
-  variableValues?: ?{ +[variable: string]: mixed, ... },
+  variableValues?: ?{ readonly [variable: string]: mixed, ... },
   operationName?: ?string,
   fieldResolver?: ?GraphQLFieldResolver<any, any>,
 ): Promise<AsyncIterable<mixed> | ExecutionResult> {
