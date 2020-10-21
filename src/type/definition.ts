@@ -65,7 +65,7 @@ export type GraphQLType =
   | GraphQLList<any>
   | GraphQLNonNull<any>;
 
-export function isType(type: unknown): boolean %checks {
+export function isType(type: unknown): boolean {
   return (
     isScalarType(type) ||
     isObjectType(type) ||
@@ -89,8 +89,7 @@ export function assertType(type: unknown): GraphQLType {
  * There are predicates for each kind of GraphQL type.
  */
 
-declare function isScalarType(type: unknown): boolean %checks(type instanceof
-  GraphQLScalarType);
+declare function isScalarType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isScalarType(type) {
   return instanceOf(type, GraphQLScalarType);
@@ -103,8 +102,7 @@ export function assertScalarType(type: unknown): GraphQLScalarType {
   return type;
 }
 
-declare function isObjectType(type: unknown): boolean %checks(type instanceof
-  GraphQLObjectType);
+declare function isObjectType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isObjectType(type) {
   return instanceOf(type, GraphQLObjectType);
@@ -117,8 +115,7 @@ export function assertObjectType(type: unknown): GraphQLObjectType {
   return type;
 }
 
-declare function isInterfaceType(type: unknown): boolean %checks(type instanceof
-  GraphQLInterfaceType);
+declare function isInterfaceType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isInterfaceType(type) {
   return instanceOf(type, GraphQLInterfaceType);
@@ -133,8 +130,7 @@ export function assertInterfaceType(type: unknown): GraphQLInterfaceType {
   return type;
 }
 
-declare function isUnionType(type: unknown): boolean %checks(type instanceof
-  GraphQLUnionType);
+declare function isUnionType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isUnionType(type) {
   return instanceOf(type, GraphQLUnionType);
@@ -147,8 +143,7 @@ export function assertUnionType(type: unknown): GraphQLUnionType {
   return type;
 }
 
-declare function isEnumType(type: unknown): boolean %checks(type instanceof
-  GraphQLEnumType);
+declare function isEnumType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isEnumType(type) {
   return instanceOf(type, GraphQLEnumType);
@@ -161,8 +156,7 @@ export function assertEnumType(type: unknown): GraphQLEnumType {
   return type;
 }
 
-declare function isInputObjectType(type: unknown): boolean %checks(type instanceof
-  GraphQLInputObjectType);
+declare function isInputObjectType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isInputObjectType(type) {
   return instanceOf(type, GraphQLInputObjectType);
@@ -177,8 +171,7 @@ export function assertInputObjectType(type: unknown): GraphQLInputObjectType {
   return type;
 }
 
-declare function isListType(type: unknown): boolean %checks(type instanceof
-  GraphQLList);
+declare function isListType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isListType(type) {
   return instanceOf(type, GraphQLList);
@@ -191,8 +184,7 @@ export function assertListType(type: unknown): GraphQLList<any> {
   return type;
 }
 
-declare function isNonNullType(type: unknown): boolean %checks(type instanceof
-  GraphQLNonNull);
+declare function isNonNullType(type: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isNonNullType(type) {
   return instanceOf(type, GraphQLNonNull);
@@ -220,7 +212,7 @@ export type GraphQLInputType =
       | GraphQLList<GraphQLInputType>,
     >;
 
-export function isInputType(type: unknown): boolean %checks {
+export function isInputType(type: unknown): boolean  {
   return (
     isScalarType(type) ||
     isEnumType(type) ||
@@ -255,7 +247,7 @@ export type GraphQLOutputType =
       | GraphQLList<GraphQLOutputType>,
     >;
 
-export function isOutputType(type: unknown): boolean %checks {
+export function isOutputType(type: unknown): boolean  {
   return (
     isScalarType(type) ||
     isObjectType(type) ||
@@ -278,7 +270,7 @@ export function assertOutputType(type: unknown): GraphQLOutputType {
  */
 export type GraphQLLeafType = GraphQLScalarType | GraphQLEnumType;
 
-export function isLeafType(type: unknown): boolean %checks {
+export function isLeafType(type: unknown): boolean  {
   return isScalarType(type) || isEnumType(type);
 }
 
@@ -297,7 +289,7 @@ export type GraphQLCompositeType =
   | GraphQLInterfaceType
   | GraphQLUnionType;
 
-export function isCompositeType(type: unknown): boolean %checks {
+export function isCompositeType(type: unknown): boolean {
   return isObjectType(type) || isInterfaceType(type) || isUnionType(type);
 }
 
@@ -315,7 +307,7 @@ export function assertCompositeType(type: unknown): GraphQLCompositeType {
  */
 export type GraphQLAbstractType = GraphQLInterfaceType | GraphQLUnionType;
 
-export function isAbstractType(type: unknown): boolean %checks {
+export function isAbstractType(type: unknown): boolean {
   return isInterfaceType(type) || isUnionType(type);
 }
 
@@ -422,7 +414,7 @@ export class GraphQLNonNull<T extends GraphQLNullableType> {
 
 export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
 
-export function isWrappingType(type: unknown): boolean %checks {
+export function isWrappingType(type: unknown): boolean {
   return isListType(type) || isNonNullType(type);
 }
 
@@ -445,7 +437,7 @@ export type GraphQLNullableType =
   | GraphQLInputObjectType
   | GraphQLList<any>;
 
-export function isNullableType(type: unknown): boolean %checks {
+export function isNullableType(type: unknown): boolean {
   return isType(type) && !isNonNullType(type);
 }
 
@@ -478,7 +470,7 @@ export type GraphQLNamedType =
   | GraphQLEnumType
   | GraphQLInputObjectType;
 
-export function isNamedType(type: unknown): boolean %checks {
+export function isNamedType(type: unknown): boolean {
   return (
     isScalarType(type) ||
     isObjectType(type) ||
@@ -986,7 +978,7 @@ export type GraphQLArgument = {
   astNode: Maybe<InputValueDefinitionNode>,
 };
 
-export function isRequiredArgument(arg: GraphQLArgument): boolean %checks {
+export function isRequiredArgument(arg: GraphQLArgument): boolean {
   return isNonNullType(arg.type) && arg.defaultValue === undefined;
 }
 
@@ -1573,7 +1565,7 @@ export type GraphQLInputField = {
 
 export function isRequiredInputField(
   field: GraphQLInputField,
-): boolean %checks {
+): boolean {
   return isNonNullType(field.type) && field.defaultValue === undefined;
 }
 

@@ -19,8 +19,7 @@
  *   An Object value which might implement the Iterable or Array-like protocols.
  * @return {boolean} true if Iterable or Array-like Object.
  */
-declare function isCollection(value: unknown): boolean %checks(value instanceof
-  Iterable);
+declare function isCollection(value: unknown): boolean;
 
 // eslint-disable-next-line no-redeclare
 export default function isCollection(obj) {

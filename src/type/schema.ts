@@ -43,8 +43,7 @@ import { Maybe } from '../jsutils/Maybe';
 /**
  * Test if the given value is a GraphQL schema.
  */
-declare function isSchema(schema: unknown): boolean %checks(schema instanceof
-  GraphQLSchema);
+declare function isSchema(schema: unknown): boolean;
 // eslint-disable-next-line no-redeclare
 export function isSchema(schema) {
   return instanceOf(schema, GraphQLSchema);

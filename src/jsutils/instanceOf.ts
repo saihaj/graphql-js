@@ -5,8 +5,7 @@
 declare function instanceOf(
   value: unknown,
   constructor: unknown,
-): boolean %checks(value instanceof constructor);
-
+): boolean;
 // See: https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production
 // See: https://webpack.js.org/guides/production/
 export default process.env.NODE_ENV === 'production'

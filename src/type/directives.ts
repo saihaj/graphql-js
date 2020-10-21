@@ -24,7 +24,7 @@ import { Maybe } from '../jsutils/Maybe';
  */
 declare function isDirective(
   directive: unknown,
-): boolean %checks(directive instanceof GraphQLDirective);
+): boolean;
 // eslint-disable-next-line no-redeclare
 export function isDirective(directive) {
   return instanceOf(directive, GraphQLDirective);
@@ -218,6 +218,6 @@ export const specifiedDirectives = Object.freeze([
 
 export function isSpecifiedDirective(
   directive: GraphQLDirective,
-): boolean %checks {
+): boolean {
   return specifiedDirectives.some(({ name }) => name === directive.name);
 }
