@@ -506,9 +506,9 @@ export function getNamedType(type) {
  * Used while defining GraphQL types to allow for circular references in
  * otherwise immutable type definitions.
  */
-export type Thunk<+T> = (() => T) | T;
+export type Thunk<T> = (() => T) | T;
 
-function resolveThunk<+T>(thunk: Thunk<T>): T {
+function resolveThunk<T>(thunk: Thunk<T>): T {
   // $FlowFixMe[incompatible-use]
   return typeof thunk === 'function' ? thunk() : thunk;
 }
