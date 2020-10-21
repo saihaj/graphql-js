@@ -106,21 +106,20 @@ export class GraphQLDirective {
 }
 
 export type GraphQLDirectiveConfig = {
-  name: string,
-  description?: Maybe<string>,
-  locations: Array<DirectiveLocationEnum>,
-  args?: Maybe<GraphQLFieldConfigArgumentMap>,
-  isRepeatable?: Maybe<boolean>,
-  extensions?: Maybe<ReadOnlyObjMapLike<unknown>>,
-  astNode?: Maybe<DirectiveDefinitionNode>,
+  name: string;
+  description?: Maybe<string>;
+  locations: Array<DirectiveLocationEnum>;
+  args?: Maybe<GraphQLFieldConfigArgumentMap>;
+  isRepeatable?: Maybe<boolean>;
+  extensions?: Maybe<ReadOnlyObjMapLike<unknown>>;
+  astNode?: Maybe<DirectiveDefinitionNode>;
 };
 
-type GraphQLDirectiveNormalizedConfig = {
-  ...GraphQLDirectiveConfig,
-  args: GraphQLFieldConfigArgumentMap,
-  isRepeatable: boolean,
-  extensions: Maybe<ReadOnlyObjMap<unknown>>,
-};
+interface GraphQLDirectiveNormalizedConfig extends GraphQLDirectiveConfig {
+  args: GraphQLFieldConfigArgumentMap;
+  isRepeatable: boolean;
+  extensions: Maybe<ReadOnlyObjMap<unknown>>;
+}
 
 /**
  * Used to conditionally include fields or fragments.
@@ -214,8 +213,6 @@ export const specifiedDirectives = Object.freeze([
   GraphQLSpecifiedByDirective,
 ]);
 
-export function isSpecifiedDirective(
-  directive: GraphQLDirective,
-): boolean {
+export function isSpecifiedDirective(directive: GraphQLDirective): boolean {
   return specifiedDirectives.some(({ name }) => name === directive.name);
 }
