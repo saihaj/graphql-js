@@ -86,15 +86,13 @@ import { valueFromAST } from './valueFromAST';
 import { Maybe } from '../jsutils/Maybe';
 
 type Options = {
-  ...GraphQLSchemaValidationOptions,
-
   /**
    * Set to true to assume the SDL is valid.
    *
    * Default: false
    */
   assumeValidSDL?: boolean,
-};
+} & GraphQLSchemaValidationOptions;
 
 /**
  * Produces a new schema given an existing schema and a document which may
