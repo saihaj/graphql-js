@@ -31,9 +31,9 @@ import { Maybe } from '../jsutils/Maybe';
 
 type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
 type VariableUsage = {
-  readonly node: VariableNode,
-  readonly type: Maybe<GraphQLInputType>,
-  readonly defaultValue: Maybe<unknown>,
+  readonly node: VariableNode;
+  readonly type: Maybe<GraphQLInputType>;
+  readonly defaultValue: Maybe<unknown>;
 };
 
 /**
@@ -48,7 +48,7 @@ export class ASTValidationContext {
   _fragmentSpreads: Map<SelectionSetNode, ReadonlyArray<FragmentSpreadNode>>;
   _recursivelyReferencedFragments: Map<
     OperationDefinitionNode,
-    ReadonlyArray<FragmentDefinitionNode>,
+    ReadonlyArray<FragmentDefinitionNode>
   >;
 
   constructor(ast: DocumentNode, onError: (err: GraphQLError) => void): void {
@@ -160,7 +160,7 @@ export class ValidationContext extends ASTValidationContext {
   _variableUsages: Map<NodeWithSelectionSet, ReadonlyArray<VariableUsage>>;
   _recursiveVariableUsages: Map<
     OperationDefinitionNode,
-    ReadonlyArray<VariableUsage>,
+    ReadonlyArray<VariableUsage>
   >;
 
   constructor(

@@ -32,7 +32,12 @@ function fieldNode(name: unknown, type: unknown, loc: unknown) {
   return fieldNodeWithArgs(name, type, [], loc);
 }
 
-function fieldNodeWithArgs(name: unknown, type: unknown, args: unknown, loc: unknown) {
+function fieldNodeWithArgs(
+  name: unknown,
+  type: unknown,
+  args: unknown,
+  loc: unknown,
+) {
   return {
     kind: 'FieldDefinition',
     description: undefined,

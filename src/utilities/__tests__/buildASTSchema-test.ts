@@ -52,7 +52,9 @@ function cycleSDL(sdl: string): string {
   return printSchema(buildSchema(sdl));
 }
 
-function printASTNode(obj: Maybe<{ readonly astNode: Maybe<ASTNode> }>): string {
+function printASTNode(
+  obj: Maybe<{ readonly astNode: Maybe<ASTNode> }>,
+): string {
   invariant(obj?.astNode != null);
   return print(obj.astNode);
 }

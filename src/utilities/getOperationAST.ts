@@ -10,7 +10,7 @@ import { Kind } from '../language/kinds';
 export function getOperationAST(
   documentAST: DocumentNode,
   operationName?: Maybe<string>,
-  ): Maybe<OperationDefinitionNode> {
+): Maybe<OperationDefinitionNode> {
   let operation = null;
   for (const definition of documentAST.definitions) {
     if (definition.kind === Kind.OPERATION_DEFINITION) {

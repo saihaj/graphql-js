@@ -246,7 +246,7 @@ export function getDirectiveValues(
   directiveDef: GraphQLDirective,
   node: { readonly directives?: ReadonlyArray<DirectiveNode> },
   variableValues?: ?ObjMap<unknown>,
-): void | { [argument: string]: unknown} {
+): void | { [argument: string]: unknown } {
   // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2203')
   const directiveNode = node.directives?.find(
     (directive) => directive.name.value === directiveDef.name,

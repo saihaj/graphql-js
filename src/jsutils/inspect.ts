@@ -70,7 +70,10 @@ function formatObject(object: Object, seenValues: Array<unknown>): string {
   return '{ ' + properties.join(', ') + ' }';
 }
 
-function formatArray(array: Array<unknown>, seenValues: Array<unknown>): string {
+function formatArray(
+  array: Array<unknown>,
+  seenValues: Array<unknown>,
+): string {
   if (array.length === 0) {
     return '[]';
   }
