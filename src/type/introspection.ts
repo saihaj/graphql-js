@@ -541,6 +541,6 @@ export const introspectionTypes = Object.freeze([
   __TypeKind,
 ]);
 
-export function isIntrospectionType(type: GraphQLNamedType): boolean %checks {
+export function isIntrospectionType(type: GraphQLNamedType): boolean {
   return introspectionTypes.some(({ name }) => type.name === name);
 }

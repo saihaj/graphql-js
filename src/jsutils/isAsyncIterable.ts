@@ -2,11 +2,9 @@
  * Returns true if the provided object implements the AsyncIterator protocol via
  * either implementing a `Symbol.asyncIterator` or `"@@asyncIterator"` method.
  */
-declare function isAsyncIterable(value: unknown): boolean %checks(value instanceof
-  AsyncIterable);
-
-// eslint-disable-next-line no-redeclare
-export function isAsyncIterable(maybeAsyncIterable) {
+export function isAsyncIterable(
+  maybeAsyncIterable: unknown,
+): maybeAsyncIterable is AsyncIterable<unknown> {
   if (maybeAsyncIterable == null || typeof maybeAsyncIterable !== 'object') {
     return false;
   }
