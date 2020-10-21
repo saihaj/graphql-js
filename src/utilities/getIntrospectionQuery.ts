@@ -224,14 +224,14 @@ export type IntrospectionInputObjectType = {
 };
 
 export type IntrospectionListTypeRef<
-  T: IntrospectionTypeRef = IntrospectionTypeRef,
+  T extends IntrospectionTypeRef = IntrospectionTypeRef,
 > = {
   readonly kind: 'LIST',
   readonly ofType: T,
 };
 
 export type IntrospectionNonNullTypeRef<
-  T: IntrospectionTypeRef = IntrospectionTypeRef,
+  T extends IntrospectionTypeRef = IntrospectionTypeRef,
 > = {
   readonly kind: 'NON_NULL',
   readonly ofType: T,
@@ -261,7 +261,7 @@ export type IntrospectionInputTypeRef =
     >;
 
 export type IntrospectionNamedTypeRef<
-  T: IntrospectionType = IntrospectionType,
+  T extends IntrospectionType = IntrospectionType,
 > = {
   readonly kind: $PropertyType<T, 'kind'>,
   readonly name: string,

@@ -68,7 +68,7 @@ const EmailEventType = new GraphQLObjectType({
 
 const emailSchema = emailSchemaWithResolvers();
 
-function emailSchemaWithResolvers<T: unknown>(
+function emailSchemaWithResolvers<T extends unknown>(
   subscribeFn?: (T) => unknown,
   resolveFn?: (T) => unknown,
 ) {
