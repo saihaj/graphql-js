@@ -25,7 +25,7 @@ type ShapeMap<O, F> = $Shape<$ObjMap<O, F>>;
  * A visitor is comprised of visit functions, which are called on each node
  * during the visitor's traversal.
  */
-export type VisitFn<TAnyNode, TVisitedNode: TAnyNode = TAnyNode> = (
+export type VisitFn<TAnyNode, TVisitedNode extends TAnyNode = TAnyNode> = (
   // The current node being visiting.
   node: TVisitedNode,
   // The index or key to this node from the parent node or Array.

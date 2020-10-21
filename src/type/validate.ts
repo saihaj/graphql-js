@@ -617,7 +617,7 @@ type SDLDefinedObject<T, K> = {
   readonly extensionASTNodes?: Maybe<ReadonlyArray<K>>,  
 };
 
-function getAllNodes<T: ASTNode, K: ASTNode>(
+function getAllNodes<T extends ASTNode, K extends ASTNode>(
   object: SDLDefinedObject<T, K>,
 ): ReadonlyArray<T | K> {
   const { astNode, extensionASTNodes } = object;
@@ -628,7 +628,7 @@ function getAllNodes<T: ASTNode, K: ASTNode>(
     : extensionASTNodes ?? [];
 }
 
-function getAllSubNodes<T: ASTNode, K: ASTNode, L: ASTNode>(
+function getAllSubNodes<T extends ASTNode, K extends ASTNode, L extends ASTNode>(
   object: SDLDefinedObject<T, K>,
   getter: (T | K) => Maybe<(L | ReadonlyArray<L>)>,
 ): ReadonlyArray<L> {

@@ -555,7 +555,7 @@ function stringifyValue(value: unknown, type: GraphQLInputType): string {
   return print(sortedAST);
 }
 
-function diff<T: { name: string }>(
+function diff<T extends { name: string }>(
   oldArray: ReadonlyArray<T>,
   newArray: ReadonlyArray<T>,
 ): {
