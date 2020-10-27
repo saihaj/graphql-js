@@ -201,7 +201,7 @@ function validateDirectives(context: SchemaValidationContext): void {
 
 function validateName(
   context: SchemaValidationContext,
-  node: { readonly name: string, readonly astNode: Maybe<ASTNode> },
+  node: { readonly name: string; readonly astNode: Maybe<ASTNode> },
 ): void {
   // Ensure names are valid, however introspection types opt out.
   const error = isValidNameError(node.name);
@@ -613,8 +613,8 @@ function createInputObjectCircularRefsValidator(
 }
 
 type SDLDefinedObject<T, K> = {
-  readonly astNode: Maybe<T>,
-  readonly extensionASTNodes?: Maybe<ReadonlyArray<K>>,  
+  readonly astNode: Maybe<T>;
+  readonly extensionASTNodes?: Maybe<ReadonlyArray<K>>;
 };
 
 function getAllNodes<T extends ASTNode, K extends ASTNode>(
@@ -628,9 +628,13 @@ function getAllNodes<T extends ASTNode, K extends ASTNode>(
     : extensionASTNodes ?? [];
 }
 
-function getAllSubNodes<T extends ASTNode, K extends ASTNode, L extends ASTNode>(
+function getAllSubNodes<
+  T extends ASTNode,
+  K extends ASTNode,
+  L extends ASTNode
+>(
   object: SDLDefinedObject<T, K>,
-  getter: (T | K) => Maybe<(L | ReadonlyArray<L>)>,
+  getter: (_: T | K) => Maybe<L | ReadonlyArray<L>>,
 ): ReadonlyArray<L> {
   let subNodes = [];
   for (const node of getAllNodes(object)) {
