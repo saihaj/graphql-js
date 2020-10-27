@@ -1,7 +1,7 @@
-import { Maybe } from "../../jsutils/Maybe";
+import { Maybe } from '../../jsutils/Maybe';
 
 export type GraphQLGrammarType = {
-  [name: string]: GraphQLGrammarRule,
+  [name: string]: GraphQLGrammarRule;
 };
 export type GraphQLGrammarRuleName = string;
 export type GraphQLGrammarRuleConstraint =
@@ -10,7 +10,7 @@ export type GraphQLGrammarRuleConstraint =
   | GraphQLGrammarListOfTypeConstraint
   | GraphQLGrammarPeekConstraint;
 export type GraphQLGrammarConstraintsSet = Array<
-  GraphQLGrammarRuleName | GraphQLGrammarRuleConstraint,
+  GraphQLGrammarRuleName | GraphQLGrammarRuleConstraint
 >;
 export type GraphQLGrammarRule =
   | GraphQLGrammarRuleName
@@ -71,7 +71,7 @@ export interface GraphQLGrammarPeekConstraintCondition {
   end?: boolean;
 }
 
-const grammar: GraphQLGrammarType = ({
+const grammar: GraphQLGrammarType = {
   Name: { token: 'Name' },
   String: { token: 'String' },
   BlockString: { token: 'BlockString' },
@@ -996,6 +996,6 @@ const grammar: GraphQLGrammarType = ({
     tokenName: 'EnumValue',
   },
   // FIXME: enforce proper typing
-}: any);
+} as any;
 
 export default grammar;

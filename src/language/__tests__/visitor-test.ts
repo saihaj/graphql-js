@@ -867,7 +867,7 @@ describe('Visitor', () => {
 
   describe('Support for custom AST nodes', () => {
     const customAST = parse('{ a }');
-    (customAST: any).definitions[0].selectionSet.selections.push({
+    (customAST as any).definitions[0].selectionSet.selections.push({
       kind: 'CustomField',
       name: {
         kind: 'Name',
@@ -916,7 +916,7 @@ describe('Visitor', () => {
 
     it('does traverse unknown node kinds with visitor keys', () => {
       const customQueryDocumentKeys = { ...QueryDocumentKeys };
-      (customQueryDocumentKeys: any).CustomField = ['name', 'selectionSet'];
+      (customQueryDocumentKeys as any).CustomField = ['name', 'selectionSet'];
 
       const visited = [];
       const visitor = {

@@ -65,7 +65,7 @@ export class Lexer {
     if (token.kind !== TokenKind.EOF) {
       do {
         // Note: next is only mutable during parsing, so we cast to allow this.
-        token = token.next ?? ((token: any).next = readToken(this, token));
+        token = token.next ?? ((token as any).next = readToken(this, token));
       } while (token.kind === TokenKind.COMMENT);
     }
     return token;
@@ -75,9 +75,7 @@ export class Lexer {
 /**
  * @internal
  */
-export function isPunctuatorTokenKind(
-  kind: TokenKindEnum,
-): boolean {
+export function isPunctuatorTokenKind(kind: TokenKindEnum): boolean {
   return (
     kind === TokenKind.BANG ||
     kind === TokenKind.DOLLAR ||

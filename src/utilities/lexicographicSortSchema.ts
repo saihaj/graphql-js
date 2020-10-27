@@ -69,10 +69,12 @@ export function lexicographicSortSchema(schema: GraphQLSchema): GraphQLSchema {
   }
 
   function replaceNamedType<T extends GraphQLNamedType>(type: T): T {
-    return ((typeMap[type.name]: any): T);
+    return typeMap[type.name] as T;
   }
 
-  function replaceMaybeType<T extends Maybe<GraphQLNamedType>>(maybeType: T): T {
+  function replaceMaybeType<T extends Maybe<GraphQLNamedType>>(
+    maybeType: T,
+  ): T {
     return maybeType && replaceNamedType(maybeType);
   }
 
@@ -107,7 +109,9 @@ export function lexicographicSortSchema(schema: GraphQLSchema): GraphQLSchema {
     }));
   }
 
-  function sortTypes<T extends GraphQLNamedType>(arr: ReadonlyArray<T>): Array<T> {
+  function sortTypes<T extends GraphQLNamedType>(
+    arr: ReadonlyArray<T>,
+  ): Array<T> {
     return sortByName(arr).map(replaceNamedType);
   }
 
@@ -155,7 +159,7 @@ export function lexicographicSortSchema(schema: GraphQLSchema): GraphQLSchema {
     }
 
     // istanbul ignore next (Not reachable. All possible types have been considered)
-    invariant(false, 'Unexpected type: ' + inspect((type: empty)));
+    invariant(false, 'Unexpected type: ' + inspect(type as never));
   }
 }
 
@@ -175,10 +179,7 @@ function sortByName<T extends { readonly name: string }>(
   return sortBy(array, (obj) => obj.name);
 }
 
-function sortBy<T>(
-  array: ReadonlyArray<T>,
-  mapToKey: (T) => string,
-): Array<T> {
+function sortBy<T>(array: ReadonlyArray<T>, mapToKey: (T) => string): Array<T> {
   return array.slice().sort((obj1, obj2) => {
     const key1 = mapToKey(obj1);
     const key2 = mapToKey(obj2);

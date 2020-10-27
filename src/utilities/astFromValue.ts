@@ -40,7 +40,10 @@ import { Maybe } from '../jsutils/Maybe';
  * | null          | NullValue            |
  *
  */
-export function astFromValue(value: unknown, type: GraphQLInputType): Maybe<ValueNode> {
+export function astFromValue(
+  value: unknown,
+  type: GraphQLInputType,
+): Maybe<ValueNode> {
   if (isNonNullType(type)) {
     const astValue = astFromValue(value, type.ofType);
     if (astValue?.kind === Kind.NULL) {
@@ -141,7 +144,7 @@ export function astFromValue(value: unknown, type: GraphQLInputType): Maybe<Valu
   }
 
   // istanbul ignore next (Not reachable. All possible input types have been considered)
-  invariant(false, 'Unexpected input type: ' + inspect((type: empty)));
+  invariant(false, 'Unexpected input type: ' + inspect(type as never));
 }
 
 /**

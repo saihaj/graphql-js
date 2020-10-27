@@ -21,7 +21,7 @@ export interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
    * Default: false
    */
   assumeValidSDL?: boolean;
-};
+}
 
 /**
  * This takes the ast of a schema document produced by the parse function in
@@ -63,13 +63,13 @@ export function buildASTSchema(
         // typed values below, that would throw immediately while type system
         // validation with validateSchema() will produce more actionable results.
         case 'Query':
-          config.query = (type: any);
+          config.query = type as any;
           break;
         case 'Mutation':
-          config.mutation = (type: any);
+          config.mutation = type as any;
           break;
         case 'Subscription':
-          config.subscription = (type: any);
+          config.subscription = type as any;
           break;
       }
     }
@@ -92,7 +92,7 @@ export function buildASTSchema(
  */
 export function buildSchema(
   source: string | Source,
-  options?: BuildSchemaOptions & ParseOptions ,
+  options?: BuildSchemaOptions & ParseOptions,
 ): GraphQLSchema {
   const document = parse(source, {
     noLocation: options?.noLocation,
