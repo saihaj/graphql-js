@@ -12,13 +12,13 @@ export type ASTVisitor = Visitor<ASTKindToNode>;
 export type Visitor<KindToNode, Nodes = $Values<KindToNode>> =
   | EnterLeave<
       | VisitFn<Nodes>
-      | ShapeMap<KindToNode, <Node>(Node) => VisitFn<Nodes, Node>>,
+      | ShapeMap<KindToNode, <Node>(Node) => VisitFn<Nodes, Node>>
     >
   | ShapeMap<
       KindToNode,
-      <Node>(Node) => VisitFn<Nodes, Node> | EnterLeave<VisitFn<Nodes, Node>>,
+      <Node>(Node) => VisitFn<Nodes, Node> | EnterLeave<VisitFn<Nodes, Node>>
     >;
-type EnterLeave<T> = { readonly enter?: T, readonly leave?: T };
+type EnterLeave<T> = { readonly enter?: T; readonly leave?: T };
 type ShapeMap<O, F> = $Shape<$ObjMap<O, F>>;
 
 /**
@@ -45,7 +45,7 @@ export type VisitFn<TAnyNode, TVisitedNode extends TAnyNode = TAnyNode> = (
  */
 export type VisitorKeyMap<KindToNode> = $ObjMap<
   KindToNode,
-  <T>(T) => ReadonlyArray<$Keys<T>>,
+  <T>(T) => ReadonlyArray<$Keys<T>>
 >;
 
 export const QueryDocumentKeys: VisitorKeyMap<ASTKindToNode> = {
@@ -135,7 +135,7 @@ export const QueryDocumentKeys: VisitorKeyMap<ASTKindToNode> = {
   InputObjectTypeExtension: ['name', 'directives', 'fields'],
 };
 
-export const BREAK: { ... } = Object.freeze({});
+export const BREAK: {} = Object.freeze({});
 
 /**
  * visit() will walk through an AST using a depth-first traversal, calling
