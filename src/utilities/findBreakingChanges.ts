@@ -71,7 +71,7 @@ export type BreakingChange = {
 };
 
 export type DangerousChange = {
-  type: $Keys<typeof DangerousChangeType>;
+  type: keyof typeof DangerousChangeType;
   description: string;
 };
 
