@@ -92,7 +92,7 @@ export class GraphQLError extends Error {
         }
       | null
       | undefined,
-  ): void {
+  ) {
     super(message);
 
     // Compute list of blame nodes.

@@ -697,7 +697,7 @@ export class GraphQLObjectType {
   _fields: Thunk<GraphQLFieldMap<any, any>>;
   _interfaces: Thunk<Array<GraphQLInterfaceType>>;
 
-  constructor(config: $ReadOnly<GraphQLObjectTypeConfig<any, any>>): void {
+  constructor(config: $ReadOnly<GraphQLObjectTypeConfig<any, any>>) {
     this.name = config.name;
     this.description = config.description;
     this.isTypeOf = config.isTypeOf;
@@ -1022,7 +1022,7 @@ export class GraphQLInterfaceType {
   _fields: Thunk<GraphQLFieldMap<any, any>>;
   _interfaces: Thunk<Array<GraphQLInterfaceType>>;
 
-  constructor(config: $ReadOnly<GraphQLInterfaceTypeConfig<any, any>>): void {
+  constructor(config: $ReadOnly<GraphQLInterfaceTypeConfig<any, any>>) {
     this.name = config.name;
     this.description = config.description;
     this.resolveType = config.resolveType;
@@ -1139,7 +1139,7 @@ export class GraphQLUnionType {
 
   _types: Thunk<Array<GraphQLObjectType>>;
 
-  constructor(config: $ReadOnly<GraphQLUnionTypeConfig<any, any>>): void {
+  constructor(config: $ReadOnly<GraphQLUnionTypeConfig<any, any>>) {
     this.name = config.name;
     this.description = config.description;
     this.resolveType = config.resolveType;
@@ -1265,7 +1265,7 @@ export class GraphQLEnumType {
       GraphQLEnumTypeConfig
       /* <T> */
     >,
-  ): void {
+  ) {
     this.name = config.name;
     this.description = config.description;
     this.extensions = config.extensions && toObjMap(config.extensions);
@@ -1502,7 +1502,7 @@ export class GraphQLInputObjectType {
 
   _fields: Thunk<GraphQLInputFieldMap>;
 
-  constructor(config: $ReadOnly<GraphQLInputObjectTypeConfig>): void {
+  constructor(config: $ReadOnly<GraphQLInputObjectTypeConfig>) {
     this.name = config.name;
     this.description = config.description;
     this.extensions = config.extensions && toObjMap(config.extensions);
