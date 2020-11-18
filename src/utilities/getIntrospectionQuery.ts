@@ -244,10 +244,10 @@ export type IntrospectionNonNullTypeRef<
 };
 
 export type IntrospectionTypeRef =
-  | IntrospectionNamedTypeRef<>
-  | IntrospectionListTypeRef<>
+  | IntrospectionNamedTypeRef
+  | IntrospectionListTypeRef
   | IntrospectionNonNullTypeRef<
-      IntrospectionNamedTypeRef<> | IntrospectionListTypeRef<>
+      IntrospectionNamedTypeRef | IntrospectionListTypeRef
     >;
 
 export type IntrospectionOutputTypeRef =
