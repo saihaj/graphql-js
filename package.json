@@ -48,7 +48,9 @@
     "gitpublish:npm": "bash ./resources/gitpublish.sh npm npmDist",
     "gitpublish:deno": "bash ./resources/gitpublish.sh deno denoDist"
   },
-  "dependencies": {},
+  "dependencies": {
+    "utility-types": "^3.10.0"
+  },
   "devDependencies": {
     "@babel/core": "7.12.3",
     "@babel/plugin-transform-flow-strip-types": "7.12.1",
