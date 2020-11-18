@@ -1,5 +1,5 @@
-import { Source } from "./source";
-import { TokenKindEnum } from "./tokenKind";
+import { Source } from './source';
+import { TokenKindEnum } from './tokenKind';
 
 /**
  * Contains a range of UTF-8 character offsets and token references that
@@ -9,27 +9,27 @@ export class Location {
   /**
    * The character offset at which this Node begins.
    */
-  +start: number;
+  readonly start: number;
 
   /**
    * The character offset at which this Node ends.
    */
-  +end: number;
+  readonly end: number;
 
   /**
    * The Token at which this Node begins.
    */
-  +startToken: Token;
+  readonly startToken: Token;
 
   /**
    * The Token at which this Node ends.
    */
-  +endToken: Token;
+  readonly endToken: Token;
 
   /**
    * The Source document the AST represents.
    */
-  +source: Source;
+  readonly source: Source;
 
   constructor(startToken: Token, endToken: Token, source: Source) {
     this.start = startToken.start;
@@ -39,7 +39,7 @@ export class Location {
     this.source = source;
   }
 
-  toJSON(): {start: number;end: number;} {
+  toJSON(): { start: number; end: number } {
     return { start: this.start, end: this.end };
   }
 
@@ -58,42 +58,50 @@ export class Token {
   /**
    * The kind of Token.
    */
-  +kind: TokenKindEnum;
+  readonly kind: TokenKindEnum;
 
   /**
    * The character offset at which this Node begins.
    */
-  +start: number;
+  readonly start: number;
 
   /**
    * The character offset at which this Node ends.
    */
-  +end: number;
+  readonly end: number;
 
   /**
    * The 1-indexed line number on which this Token appears.
    */
-  +line: number;
+  readonly line: number;
 
   /**
    * The 1-indexed column number at which this Token begins.
    */
-  +column: number;
+  readonly column: number;
 
   /**
    * For non-punctuation tokens, represents the interpreted value of the token.
    */
-  +value: string | void;
+  readonly value: string | void;
 
   /**
    * Tokens exist as nodes in a double-linked-list amongst all tokens
    * including ignored tokens. <SOF> is always the first node and <EOF>
    * the last.
    */
-  +prev: Token | null;
-  +next: Token | null;
+  readonly prev: Token | null;
+  readonly next: Token | null;
 
-  constructor(kind: TokenKindEnum, start: number, end: number, line: number, column: number, prev: Token | null, value?: string) {
+  constructor(
+    kind: TokenKindEnum,
+    start: number,
+    end: number,
+    line: number,
+    column: number,
+    prev: Token | null,
+    value?: string,
+  ) {
     this.kind = kind;
     this.start = start;
     this.end = end;
@@ -114,7 +122,7 @@ export class Token {
       kind: this.kind,
       value: this.value,
       line: this.line,
-      column: this.column
+      column: this.column,
     };
   }
 
@@ -135,7 +143,50 @@ export function isNode(maybeNode: unknown): boolean {
 /**
  * The list of all possible AST node types.
  */
-export type ASTNode = NameNode | DocumentNode | OperationDefinitionNode | VariableDefinitionNode | VariableNode | SelectionSetNode | FieldNode | ArgumentNode | FragmentSpreadNode | InlineFragmentNode | FragmentDefinitionNode | IntValueNode | FloatValueNode | StringValueNode | BooleanValueNode | NullValueNode | EnumValueNode | ListValueNode | ObjectValueNode | ObjectFieldNode | DirectiveNode | NamedTypeNode | ListTypeNode | NonNullTypeNode | SchemaDefinitionNode | OperationTypeDefinitionNode | ScalarTypeDefinitionNode | ObjectTypeDefinitionNode | FieldDefinitionNode | InputValueDefinitionNode | InterfaceTypeDefinitionNode | UnionTypeDefinitionNode | EnumTypeDefinitionNode | EnumValueDefinitionNode | InputObjectTypeDefinitionNode | DirectiveDefinitionNode | SchemaExtensionNode | ScalarTypeExtensionNode | ObjectTypeExtensionNode | InterfaceTypeExtensionNode | UnionTypeExtensionNode | EnumTypeExtensionNode | InputObjectTypeExtensionNode;
+export type ASTNode =
+  | NameNode
+  | DocumentNode
+  | OperationDefinitionNode
+  | VariableDefinitionNode
+  | VariableNode
+  | SelectionSetNode
+  | FieldNode
+  | ArgumentNode
+  | FragmentSpreadNode
+  | InlineFragmentNode
+  | FragmentDefinitionNode
+  | IntValueNode
+  | FloatValueNode
+  | StringValueNode
+  | BooleanValueNode
+  | NullValueNode
+  | EnumValueNode
+  | ListValueNode
+  | ObjectValueNode
+  | ObjectFieldNode
+  | DirectiveNode
+  | NamedTypeNode
+  | ListTypeNode
+  | NonNullTypeNode
+  | SchemaDefinitionNode
+  | OperationTypeDefinitionNode
+  | ScalarTypeDefinitionNode
+  | ObjectTypeDefinitionNode
+  | FieldDefinitionNode
+  | InputValueDefinitionNode
+  | InterfaceTypeDefinitionNode
+  | UnionTypeDefinitionNode
+  | EnumTypeDefinitionNode
+  | EnumValueDefinitionNode
+  | InputObjectTypeDefinitionNode
+  | DirectiveDefinitionNode
+  | SchemaExtensionNode
+  | ScalarTypeExtensionNode
+  | ObjectTypeExtensionNode
+  | InterfaceTypeExtensionNode
+  | UnionTypeExtensionNode
+  | EnumTypeExtensionNode
+  | InputObjectTypeExtensionNode;
 
 /**
  * Utility type listing all nodes indexed by their kind.
@@ -189,7 +240,7 @@ export type ASTKindToNode = {
 // Name
 
 export type NameNode = {
-  readonly kind: "Name";
+  readonly kind: 'Name';
   readonly loc?: Location;
   readonly value: string;
 };
@@ -197,17 +248,22 @@ export type NameNode = {
 // Document
 
 export type DocumentNode = {
-  readonly kind: "Document";
+  readonly kind: 'Document';
   readonly loc?: Location;
   readonly definitions: ReadonlyArray<DefinitionNode>;
 };
 
-export type DefinitionNode = ExecutableDefinitionNode | TypeSystemDefinitionNode | TypeSystemExtensionNode;
+export type DefinitionNode =
+  | ExecutableDefinitionNode
+  | TypeSystemDefinitionNode
+  | TypeSystemExtensionNode;
 
-export type ExecutableDefinitionNode = OperationDefinitionNode | FragmentDefinitionNode;
+export type ExecutableDefinitionNode =
+  | OperationDefinitionNode
+  | FragmentDefinitionNode;
 
 export type OperationDefinitionNode = {
-  readonly kind: "OperationDefinition";
+  readonly kind: 'OperationDefinition';
   readonly loc?: Location;
   readonly operation: OperationTypeNode;
   readonly name?: NameNode;
@@ -216,10 +272,10 @@ export type OperationDefinitionNode = {
   readonly selectionSet: SelectionSetNode;
 };
 
-export type OperationTypeNode = "query" | "mutation" | "subscription";
+export type OperationTypeNode = 'query' | 'mutation' | 'subscription';
 
 export type VariableDefinitionNode = {
-  readonly kind: "VariableDefinition";
+  readonly kind: 'VariableDefinition';
   readonly loc?: Location;
   readonly variable: VariableNode;
   readonly type: TypeNode;
@@ -228,13 +284,13 @@ export type VariableDefinitionNode = {
 };
 
 export type VariableNode = {
-  readonly kind: "Variable";
+  readonly kind: 'Variable';
   readonly loc?: Location;
   readonly name: NameNode;
 };
 
 export type SelectionSetNode = {
-  kind: "SelectionSet";
+  kind: 'SelectionSet';
   loc?: Location;
   selections: ReadonlyArray<SelectionNode>;
 };
@@ -242,7 +298,7 @@ export type SelectionSetNode = {
 export type SelectionNode = FieldNode | FragmentSpreadNode | InlineFragmentNode;
 
 export type FieldNode = {
-  readonly kind: "Field";
+  readonly kind: 'Field';
   readonly loc?: Location;
   readonly alias?: NameNode;
   readonly name: NameNode;
@@ -252,7 +308,7 @@ export type FieldNode = {
 };
 
 export type ArgumentNode = {
-  readonly kind: "Argument";
+  readonly kind: 'Argument';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly value: ValueNode;
@@ -261,14 +317,14 @@ export type ArgumentNode = {
 // Fragments
 
 export type FragmentSpreadNode = {
-  readonly kind: "FragmentSpread";
+  readonly kind: 'FragmentSpread';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
 };
 
 export type InlineFragmentNode = {
-  readonly kind: "InlineFragment";
+  readonly kind: 'InlineFragment';
   readonly loc?: Location;
   readonly typeCondition?: NamedTypeNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
@@ -276,7 +332,7 @@ export type InlineFragmentNode = {
 };
 
 export type FragmentDefinitionNode = {
-  readonly kind: "FragmentDefinition";
+  readonly kind: 'FragmentDefinition';
   readonly loc?: Location;
   readonly name: NameNode;
   // Note: fragment variable definitions are experimental and may be changed
@@ -289,58 +345,67 @@ export type FragmentDefinitionNode = {
 
 // Values
 
-export type ValueNode = VariableNode | IntValueNode | FloatValueNode | StringValueNode | BooleanValueNode | NullValueNode | EnumValueNode | ListValueNode | ObjectValueNode;
+export type ValueNode =
+  | VariableNode
+  | IntValueNode
+  | FloatValueNode
+  | StringValueNode
+  | BooleanValueNode
+  | NullValueNode
+  | EnumValueNode
+  | ListValueNode
+  | ObjectValueNode;
 
 export type IntValueNode = {
-  readonly kind: "IntValue";
+  readonly kind: 'IntValue';
   readonly loc?: Location;
   readonly value: string;
 };
 
 export type FloatValueNode = {
-  readonly kind: "FloatValue";
+  readonly kind: 'FloatValue';
   readonly loc?: Location;
   readonly value: string;
 };
 
 export type StringValueNode = {
-  readonly kind: "StringValue";
+  readonly kind: 'StringValue';
   readonly loc?: Location;
   readonly value: string;
   readonly block?: boolean;
 };
 
 export type BooleanValueNode = {
-  readonly kind: "BooleanValue";
+  readonly kind: 'BooleanValue';
   readonly loc?: Location;
   readonly value: boolean;
 };
 
 export type NullValueNode = {
-  readonly kind: "NullValue";
+  readonly kind: 'NullValue';
   readonly loc?: Location;
 };
 
 export type EnumValueNode = {
-  readonly kind: "EnumValue";
+  readonly kind: 'EnumValue';
   readonly loc?: Location;
   readonly value: string;
 };
 
 export type ListValueNode = {
-  readonly kind: "ListValue";
+  readonly kind: 'ListValue';
   readonly loc?: Location;
   readonly values: ReadonlyArray<ValueNode>;
 };
 
 export type ObjectValueNode = {
-  readonly kind: "ObjectValue";
+  readonly kind: 'ObjectValue';
   readonly loc?: Location;
   readonly fields: ReadonlyArray<ObjectFieldNode>;
 };
 
 export type ObjectFieldNode = {
-  readonly kind: "ObjectField";
+  readonly kind: 'ObjectField';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly value: ValueNode;
@@ -349,7 +414,7 @@ export type ObjectFieldNode = {
 // Directives
 
 export type DirectiveNode = {
-  readonly kind: "Directive";
+  readonly kind: 'Directive';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly arguments?: ReadonlyArray<ArgumentNode>;
@@ -360,29 +425,32 @@ export type DirectiveNode = {
 export type TypeNode = NamedTypeNode | ListTypeNode | NonNullTypeNode;
 
 export type NamedTypeNode = {
-  readonly kind: "NamedType";
+  readonly kind: 'NamedType';
   readonly loc?: Location;
   readonly name: NameNode;
 };
 
 export type ListTypeNode = {
-  readonly kind: "ListType";
+  readonly kind: 'ListType';
   readonly loc?: Location;
   readonly type: TypeNode;
 };
 
 export type NonNullTypeNode = {
-  readonly kind: "NonNullType";
+  readonly kind: 'NonNullType';
   readonly loc?: Location;
   readonly type: NamedTypeNode | ListTypeNode;
 };
 
 // Type System Definition
 
-export type TypeSystemDefinitionNode = SchemaDefinitionNode | TypeDefinitionNode | DirectiveDefinitionNode;
+export type TypeSystemDefinitionNode =
+  | SchemaDefinitionNode
+  | TypeDefinitionNode
+  | DirectiveDefinitionNode;
 
 export type SchemaDefinitionNode = {
-  readonly kind: "SchemaDefinition";
+  readonly kind: 'SchemaDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
@@ -390,7 +458,7 @@ export type SchemaDefinitionNode = {
 };
 
 export type OperationTypeDefinitionNode = {
-  readonly kind: "OperationTypeDefinition";
+  readonly kind: 'OperationTypeDefinition';
   readonly loc?: Location;
   readonly operation: OperationTypeNode;
   readonly type: NamedTypeNode;
@@ -398,10 +466,16 @@ export type OperationTypeDefinitionNode = {
 
 // Type Definition
 
-export type TypeDefinitionNode = ScalarTypeDefinitionNode | ObjectTypeDefinitionNode | InterfaceTypeDefinitionNode | UnionTypeDefinitionNode | EnumTypeDefinitionNode | InputObjectTypeDefinitionNode;
+export type TypeDefinitionNode =
+  | ScalarTypeDefinitionNode
+  | ObjectTypeDefinitionNode
+  | InterfaceTypeDefinitionNode
+  | UnionTypeDefinitionNode
+  | EnumTypeDefinitionNode
+  | InputObjectTypeDefinitionNode;
 
 export type ScalarTypeDefinitionNode = {
-  readonly kind: "ScalarTypeDefinition";
+  readonly kind: 'ScalarTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -409,7 +483,7 @@ export type ScalarTypeDefinitionNode = {
 };
 
 export type ObjectTypeDefinitionNode = {
-  readonly kind: "ObjectTypeDefinition";
+  readonly kind: 'ObjectTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -419,7 +493,7 @@ export type ObjectTypeDefinitionNode = {
 };
 
 export type FieldDefinitionNode = {
-  readonly kind: "FieldDefinition";
+  readonly kind: 'FieldDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -429,7 +503,7 @@ export type FieldDefinitionNode = {
 };
 
 export type InputValueDefinitionNode = {
-  readonly kind: "InputValueDefinition";
+  readonly kind: 'InputValueDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -439,7 +513,7 @@ export type InputValueDefinitionNode = {
 };
 
 export type InterfaceTypeDefinitionNode = {
-  readonly kind: "InterfaceTypeDefinition";
+  readonly kind: 'InterfaceTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -449,7 +523,7 @@ export type InterfaceTypeDefinitionNode = {
 };
 
 export type UnionTypeDefinitionNode = {
-  readonly kind: "UnionTypeDefinition";
+  readonly kind: 'UnionTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -458,7 +532,7 @@ export type UnionTypeDefinitionNode = {
 };
 
 export type EnumTypeDefinitionNode = {
-  readonly kind: "EnumTypeDefinition";
+  readonly kind: 'EnumTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -467,7 +541,7 @@ export type EnumTypeDefinitionNode = {
 };
 
 export type EnumValueDefinitionNode = {
-  readonly kind: "EnumValueDefinition";
+  readonly kind: 'EnumValueDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -475,7 +549,7 @@ export type EnumValueDefinitionNode = {
 };
 
 export type InputObjectTypeDefinitionNode = {
-  readonly kind: "InputObjectTypeDefinition";
+  readonly kind: 'InputObjectTypeDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -486,7 +560,7 @@ export type InputObjectTypeDefinitionNode = {
 // Directive Definitions
 
 export type DirectiveDefinitionNode = {
-  readonly kind: "DirectiveDefinition";
+  readonly kind: 'DirectiveDefinition';
   readonly loc?: Location;
   readonly description?: StringValueNode;
   readonly name: NameNode;
@@ -500,7 +574,7 @@ export type DirectiveDefinitionNode = {
 export type TypeSystemExtensionNode = SchemaExtensionNode | TypeExtensionNode;
 
 export type SchemaExtensionNode = {
-  readonly kind: "SchemaExtension";
+  readonly kind: 'SchemaExtension';
   readonly loc?: Location;
   readonly directives?: ReadonlyArray<DirectiveNode>;
   readonly operationTypes?: ReadonlyArray<OperationTypeDefinitionNode>;
@@ -508,17 +582,23 @@ export type SchemaExtensionNode = {
 
 // Type Extensions
 
-export type TypeExtensionNode = ScalarTypeExtensionNode | ObjectTypeExtensionNode | InterfaceTypeExtensionNode | UnionTypeExtensionNode | EnumTypeExtensionNode | InputObjectTypeExtensionNode;
+export type TypeExtensionNode =
+  | ScalarTypeExtensionNode
+  | ObjectTypeExtensionNode
+  | InterfaceTypeExtensionNode
+  | UnionTypeExtensionNode
+  | EnumTypeExtensionNode
+  | InputObjectTypeExtensionNode;
 
 export type ScalarTypeExtensionNode = {
-  readonly kind: "ScalarTypeExtension";
+  readonly kind: 'ScalarTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
 };
 
 export type ObjectTypeExtensionNode = {
-  readonly kind: "ObjectTypeExtension";
+  readonly kind: 'ObjectTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly interfaces?: ReadonlyArray<NamedTypeNode>;
@@ -527,7 +607,7 @@ export type ObjectTypeExtensionNode = {
 };
 
 export type InterfaceTypeExtensionNode = {
-  readonly kind: "InterfaceTypeExtension";
+  readonly kind: 'InterfaceTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly interfaces?: ReadonlyArray<NamedTypeNode>;
@@ -536,7 +616,7 @@ export type InterfaceTypeExtensionNode = {
 };
 
 export type UnionTypeExtensionNode = {
-  readonly kind: "UnionTypeExtension";
+  readonly kind: 'UnionTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
@@ -544,7 +624,7 @@ export type UnionTypeExtensionNode = {
 };
 
 export type EnumTypeExtensionNode = {
-  readonly kind: "EnumTypeExtension";
+  readonly kind: 'EnumTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;
@@ -552,7 +632,7 @@ export type EnumTypeExtensionNode = {
 };
 
 export type InputObjectTypeExtensionNode = {
-  readonly kind: "InputObjectTypeExtension";
+  readonly kind: 'InputObjectTypeExtension';
   readonly loc?: Location;
   readonly name: NameNode;
   readonly directives?: ReadonlyArray<DirectiveNode>;

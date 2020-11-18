@@ -280,10 +280,8 @@ export class GraphQLSchema {
   getImplementations(
     interfaceType: GraphQLInterfaceType,
   ): {
-    objects: /* $ReadOnly */
-    Array<GraphQLObjectType>;
-    interfaces: /* $ReadOnly */
-    Array<GraphQLInterfaceType>;
+    objects: /* $ReadOnly */ Array<GraphQLObjectType>;
+    interfaces: /* $ReadOnly */ Array<GraphQLInterfaceType>;
   } {
     const implementations = this._implementationsMap[interfaceType.name];
     return implementations ?? { objects: [], interfaces: [] };

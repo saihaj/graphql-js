@@ -1,13 +1,13 @@
 // FIXME:
 // flowlint uninitialized-instance-property:off
 
-import isObjectLike from "../jsutils/isObjectLike";
+import isObjectLike from '../jsutils/isObjectLike';
 
-import { ASTNode } from "../language/ast";
-import { Source } from "../language/source";
-import { SourceLocation } from "../language/location";
-import { getLocation } from "../language/location";
-import { printLocation, printSourceLocation } from "../language/printLocation";
+import { ASTNode } from '../language/ast';
+import { Source } from '../language/source';
+import { SourceLocation } from '../language/location';
+import { getLocation } from '../language/location';
+import { printLocation, printSourceLocation } from '../language/printLocation';
 
 /**
  * A GraphQLError describes an Error found during the parse, validate, or
@@ -35,7 +35,7 @@ export class GraphQLError extends Error {
    *
    * Enumerable, and appears in the result of JSON.stringify().
    */
-  +locations: ReadonlyArray<SourceLocation> | void;
+  readonly locations: ReadonlyArray<SourceLocation> | void;
 
   /**
    * An array describing the JSON-path into the execution response which
@@ -43,12 +43,12 @@ export class GraphQLError extends Error {
    *
    * Enumerable, and appears in the result of JSON.stringify().
    */
-  +path: ReadonlyArray<string | number> | void;
+  readonly path: ReadonlyArray<string | number> | void;
 
   /**
    * An array of GraphQL AST Nodes corresponding to this error.
    */
-  +nodes: ReadonlyArray<ASTNode> | void;
+  readonly nodes: ReadonlyArray<ASTNode> | void;
 
   /**
    * The source GraphQL document for the first location of this error.
@@ -56,33 +56,53 @@ export class GraphQLError extends Error {
    * Note that if this Error represents more than one node, the source may not
    * represent nodes after the first node.
    */
-  +source: Source | void;
+  readonly source: Source | void;
 
   /**
    * An array of character offsets within the source GraphQL document
    * which correspond to this error.
    */
-  +positions: ReadonlyArray<number> | void;
+  readonly positions: ReadonlyArray<number> | void;
 
   /**
    * The original error thrown from a field resolver during execution.
    */
-  +originalError: Error | null | undefined;
+  readonly originalError: Error | null | undefined;
 
   /**
    * Extension fields to add to the formatted error.
    */
-  +extensions: {
+  readonly extensions: {
     [key: string]: unknown;
   } | void;
 
-  constructor(message: string, nodes?: ReadonlyArray<ASTNode> | ASTNode | void | null, source?: Source | null | undefined, positions?: ReadonlyArray<number> | null | undefined, path?: ReadonlyArray<string | number> | null | undefined, originalError?: (Error & {readonly extensions?: unknown;}) | null | undefined, extensions?: {
-    [key: string]: unknown;
-  } | null | undefined): void {
+  constructor(
+    message: string,
+    nodes?: ReadonlyArray<ASTNode> | ASTNode | void | null,
+    source?: Source | null | undefined,
+    positions?: ReadonlyArray<number> | null | undefined,
+    path?: ReadonlyArray<string | number> | null | undefined,
+    originalError?:
+      | (Error & { readonly extensions?: unknown })
+      | null
+      | undefined,
+    extensions?:
+      | {
+          [key: string]: unknown;
+        }
+      | null
+      | undefined,
+  ): void {
     super(message);
 
     // Compute list of blame nodes.
-    const _nodes = Array.isArray(nodes) ? nodes.length !== 0 ? nodes : undefined : nodes ? [nodes] : undefined;
+    const _nodes = Array.isArray(nodes)
+      ? nodes.length !== 0
+        ? nodes
+        : undefined
+      : nodes
+      ? [nodes]
+      : undefined;
 
     // Compute locations in the source for the given nodes/positions.
     let _source = source;
@@ -105,7 +125,7 @@ export class GraphQLError extends Error {
 
     let _locations;
     if (positions && source) {
-      _locations = positions.map(pos => getLocation(source, pos));
+      _locations = positions.map((pos) => getLocation(source, pos));
     } else if (_nodes) {
       _locations = _nodes.reduce((list, node) => {
         if (node.loc) {
@@ -123,7 +143,7 @@ export class GraphQLError extends Error {
       }
     }
 
-    Object.defineProperties((this as any), {
+    Object.defineProperties(this as any, {
       name: { value: 'GraphQLError' },
       message: {
         value: message,
@@ -131,7 +151,7 @@ export class GraphQLError extends Error {
         // resulting output. This ensures that the simplest possible GraphQL
         // service adheres to the spec.
         enumerable: true,
-        writable: true
+        writable: true,
       },
       locations: {
         // Coercing falsy values to undefined ensures they will not be included
@@ -140,7 +160,7 @@ export class GraphQLError extends Error {
         // By being enumerable, JSON.stringify will include `locations` in the
         // resulting output. This ensures that the simplest possible GraphQL
         // service adheres to the spec.
-        enumerable: _locations != null
+        enumerable: _locations != null,
       },
       path: {
         // Coercing falsy values to undefined ensures they will not be included
@@ -149,19 +169,19 @@ export class GraphQLError extends Error {
         // By being enumerable, JSON.stringify will include `path` in the
         // resulting output. This ensures that the simplest possible GraphQL
         // service adheres to the spec.
-        enumerable: path != null
+        enumerable: path != null,
       },
       nodes: {
-        value: _nodes ?? undefined
+        value: _nodes ?? undefined,
       },
       source: {
-        value: _source ?? undefined
+        value: _source ?? undefined,
       },
       positions: {
-        value: _positions ?? undefined
+        value: _positions ?? undefined,
       },
       originalError: {
-        value: originalError
+        value: originalError,
       },
       extensions: {
         // Coercing falsy values to undefined ensures they will not be included
@@ -170,8 +190,8 @@ export class GraphQLError extends Error {
         // By being enumerable, JSON.stringify will include `path` in the
         // resulting output. This ensures that the simplest possible GraphQL
         // service adheres to the spec.
-        enumerable: _extensions != null
-      }
+        enumerable: _extensions != null,
+      },
     });
 
     // Include (non-enumerable) stack trace.
@@ -179,7 +199,7 @@ export class GraphQLError extends Error {
       Object.defineProperty(this, 'stack', {
         value: originalError.stack,
         writable: true,
-        configurable: true
+        configurable: true,
       });
       return;
     }
@@ -191,7 +211,7 @@ export class GraphQLError extends Error {
       Object.defineProperty(this, 'stack', {
         value: Error().stack,
         writable: true,
-        configurable: true
+        configurable: true,
       });
     }
   }
