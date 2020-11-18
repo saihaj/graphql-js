@@ -3,15 +3,15 @@ const MAX_SUGGESTIONS = 5;
 /**
  * Given [ A, B, C ] return ' Did you mean A, B, or C?'.
  */
-declare function didYouMean(suggestions: ReadonlyArray<string>): string;
-// eslint-disable-next-line no-redeclare
-declare function didYouMean(
+function didYouMean(suggestions: ReadonlyArray<string>): string;
+function didYouMean(
   subMessage: string,
   suggestions: ReadonlyArray<string>,
 ): string;
-
-// eslint-disable-next-line no-redeclare
-export default function didYouMean(firstArg, secondArg) {
+function didYouMean(
+  firstArg: string | ReadonlyArray<string>,
+  secondArg?: ReadonlyArray<string>,
+): string {
   const [subMessage, suggestionsArg] =
     typeof firstArg === 'string'
       ? [firstArg, secondArg]
@@ -36,3 +36,5 @@ export default function didYouMean(firstArg, secondArg) {
   const lastItem = selected.pop();
   return message + selected.join(', ') + ', or ' + lastItem + '?';
 }
+
+export default didYouMean
