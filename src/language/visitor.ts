@@ -9,7 +9,7 @@ import { isNode } from './ast';
  * relevant functions to be called during the visitor's traversal.
  */
 export type ASTVisitor = Visitor<ASTKindToNode>;
-export type Visitor<KindToNode, Nodes = $Values<KindToNode>> =
+export type Visitor<KindToNode, Nodes = KindToNode[keyof KindToNode]> =
   | EnterLeave<
       | VisitFn<Nodes>
       | ShapeMap<KindToNode, <Node>(Node) => VisitFn<Nodes, Node>>
