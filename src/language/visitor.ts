@@ -19,7 +19,7 @@ export type Visitor<KindToNode, Nodes = KindToNode[keyof KindToNode]> =
       <Node>(Node) => VisitFn<Nodes, Node> | EnterLeave<VisitFn<Nodes, Node>>
     >;
 type EnterLeave<T> = { readonly enter?: T; readonly leave?: T };
-type ShapeMap<O, F> = $Shape<$ObjMap<O, F>>;
+type ShapeMap<O, F> = Partial<$ObjMap<O, F>>;
 
 /**
  * A visitor is comprised of visit functions, which are called on each node
