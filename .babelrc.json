@@ -1,6 +1,6 @@
 {
   "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]],
-  "plugins": ["@babel/plugin-transform-flow-strip-types"],
+  "plugins": ["@babel/plugin-transform-typescript"],
   "overrides": [
     {
       "exclude": ["src/__testUtils__/**/*", "**/__tests__/**/*"],
@@ -35,7 +35,7 @@
       }
     },
     {
-      "include": "src/error/GraphQLError.js",
+      "include": "src/error/GraphQLError.ts",
       "plugins": [["@babel/plugin-transform-classes", { "loose": false }]]
     }
   ]

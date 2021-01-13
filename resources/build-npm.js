@@ -18,15 +18,12 @@ if (require.main === module) {
     const destPath = path.join('./npmDist', filepath);
 
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
-    if (filepath.endsWith('.js')) {
-      const flowBody = '// @flow strict\n' + fs.readFileSync(srcPath, 'utf-8');
-      fs.writeFileSync(destPath + '.flow', flowBody);
-
+    if (filepath.endsWith('.ts') && !filepath.endsWith('.d.ts')) {
       const cjs = babelBuild(srcPath, { envName: 'cjs' });
-      fs.writeFileSync(destPath, cjs);
+      fs.writeFileSync(destPath.replace(/\.ts$/, '.js'), cjs);
 
       const mjs = babelBuild(srcPath, { envName: 'mjs' });
-      fs.writeFileSync(destPath.replace(/\.js$/, '.mjs'), mjs);
+      fs.writeFileSync(destPath.replace(/\.ts$/, '.mjs'), mjs);
     } else if (filepath.endsWith('.d.ts')) {
       fs.copyFileSync(srcPath, destPath);
     }
