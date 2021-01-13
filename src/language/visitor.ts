@@ -45,7 +45,7 @@ export type VisitFn<TAnyNode, TVisitedNode extends TAnyNode = TAnyNode> = (
  */
 export type VisitorKeyMap<KindToNode> = $ObjMap<
   KindToNode,
-  <T>(T) => ReadonlyArray<$Keys<T>>
+  <T>(T) => ReadonlyArray<keyof T>
 >;
 
 export const QueryDocumentKeys: VisitorKeyMap<ASTKindToNode> = {
