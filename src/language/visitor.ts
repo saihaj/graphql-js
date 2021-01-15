@@ -10,22 +10,26 @@ import { isNode } from './ast';
  */
 export type ASTVisitor = Visitor<ASTKindToNode>;
 export type Visitor<KindToNode, Nodes = KindToNode[keyof KindToNode]> =
-  | EnterLeave<
-      | VisitFn<Nodes>
-      | ShapeMap<KindToNode, <Node>(Node) => VisitFn<Nodes, Node>>
-    >
-  | ShapeMap<
-      KindToNode,
-      <Node>(Node) => VisitFn<Nodes, Node> | EnterLeave<VisitFn<Nodes, Node>>
-    >;
+  | EnterLeaveVisitor<KindToNode, Nodes>
+  | ShapeMapVisitor<KindToNode, Nodes>;
+
 type EnterLeave<T> = { readonly enter?: T; readonly leave?: T };
-type ShapeMap<O, F> = Partial<$ObjMap<O, F>>;
+
+type EnterLeaveVisitor<KindToNode, Nodes> = EnterLeave<
+  VisitFn<Nodes> | { [K in keyof KindToNode]?: VisitFn<Nodes, KindToNode[K]> }
+>;
+
+type ShapeMapVisitor<KindToNode, Nodes> = {
+  [K in keyof KindToNode]?:
+    | VisitFn<Nodes, KindToNode[K]>
+    | EnterLeave<VisitFn<Nodes, KindToNode[K]>>;
+};
 
 /**
  * A visitor is comprised of visit functions, which are called on each node
  * during the visitor's traversal.
  */
-export type VisitFn<TAnyNode, TVisitedNode extends TAnyNode = TAnyNode> = (
+export type VisitFn<TAnyNode, TVisitedNode = TAnyNode> = (
   // The current node being visiting.
   node: TVisitedNode,
   // The index or key to this node from the parent node or Array.
@@ -43,10 +47,7 @@ export type VisitFn<TAnyNode, TVisitedNode extends TAnyNode = TAnyNode> = (
 /**
  * A KeyMap describes each the traversable properties of each kind of node.
  */
-export type VisitorKeyMap<KindToNode> = $ObjMap<
-  KindToNode,
-  <T>(T) => ReadonlyArray<keyof T>
->;
+export type VisitorKeyMap<T> = { [P in keyof T]: ReadonlyArray<keyof T[P]> };
 
 export const QueryDocumentKeys: VisitorKeyMap<ASTKindToNode> = {
   Name: [],
