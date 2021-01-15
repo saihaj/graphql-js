@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+
 import { Maybe } from '../../jsutils/Maybe';
 
 import { parse } from '../../language/parser';
