@@ -2,7 +2,7 @@
   "exclude": ["integrationTests/ts/**/*"],
   "compilerOptions": {
     "module": "commonjs",
-    "lib": ["es6", "esnext.asynciterable"],
+    "lib": ["es6", "esnext.asynciterable", "ES2018.AsyncGenerator"],
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false,
