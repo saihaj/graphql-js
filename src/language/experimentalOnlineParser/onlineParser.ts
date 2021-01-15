@@ -3,7 +3,7 @@ import { Maybe } from '../../jsutils/Maybe';
 import { Lexer } from '../lexer';
 import { Source } from '../source';
 
-import GraphQLGrammar from './grammar';
+import { GraphQLGrammar } from './grammar';
 import type {
   GraphQLGrammarRule,
   GraphQLGrammarRuleName,
