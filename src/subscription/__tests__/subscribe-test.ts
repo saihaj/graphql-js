@@ -302,13 +302,11 @@ describe('Subscription Initialization Phase', () => {
     `);
 
     await expectPromiseToThrow(
-      // $FlowExpectedError[incompatible-call]
       () => subscribe({ schema: null, document }),
       'Expected null to be a GraphQL schema.',
     );
 
     await expectPromiseToThrow(
-      // $FlowExpectedError[prop-missing]
       () => subscribe({ document }),
       'Expected undefined to be a GraphQL schema.',
     );
@@ -316,13 +314,11 @@ describe('Subscription Initialization Phase', () => {
 
   it('throws an error if document is missing', async () => {
     await expectPromiseToThrow(
-      // $FlowExpectedError[incompatible-call]
       () => subscribe({ schema: emailSchema, document: null }),
       'Must provide document.',
     );
 
     await expectPromiseToThrow(
-      // $FlowExpectedError[prop-missing]
       () => subscribe({ schema: emailSchema }),
       'Must provide document.',
     );
@@ -351,7 +347,6 @@ describe('Subscription Initialization Phase', () => {
   it('should pass through unexpected errors thrown in subscribe', async () => {
     let expectedError;
     try {
-      // $FlowExpectedError[prop-missing]
       await subscribe({ schema: emailSchema, document: {} });
     } catch (error) {
       expectedError = error;

@@ -44,7 +44,6 @@ export class Location {
   }
 
   // @deprecated: Will be removed in v17
-  // $FlowFixMe[unsupported-syntax] Flow doesn't support computed properties yet
   [Symbol.for('nodejs.util.inspect.custom')](): unknown {
     return this.toJSON();
   }
@@ -127,7 +126,6 @@ export class Token {
   }
 
   // @deprecated: Will be removed in v17
-  // $FlowFixMe[unsupported-syntax] Flow doesn't support computed properties yet
   [Symbol.for('nodejs.util.inspect.custom')](): unknown {
     return this.toJSON();
   }

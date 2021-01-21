@@ -125,7 +125,6 @@ export class OnlineParser {
   static startState(): OnlineParserState {
     return {
       rules: [
-        // $FlowFixMe[cannot-spread-interface]
         {
           name: 'Document',
           state: 'Document',

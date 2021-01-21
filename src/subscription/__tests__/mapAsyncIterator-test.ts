@@ -71,7 +71,6 @@ describe('mapAsyncIterator', () => {
       yield 3;
     }
 
-    // Flow test: this is *not* AsyncIterator<Promise<number>>
     const doubles: AsyncIterator<number> = mapAsyncIterator(
       source(),
       async (x) => (await x) + x,

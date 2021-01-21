@@ -220,11 +220,9 @@ export function extendSchemaImpl(
 
   function replaceType<T extends GraphQLType>(type: T): T {
     if (isListType(type)) {
-      // $FlowFixMe[incompatible-return]
       return new GraphQLList(replaceType(type.ofType));
     }
     if (isNonNullType(type)) {
-      // $FlowFixMe[incompatible-return]
       return new GraphQLNonNull(replaceType(type.ofType));
     }
     return replaceNamedType(type);
@@ -381,7 +379,6 @@ export function extendSchemaImpl(
     return {
       ...field,
       type: replaceType(field.type),
-      // $FlowFixMe[incompatible-call]
       args: mapValue(field.args, extendArg),
     };
   }
@@ -431,7 +428,6 @@ export function extendSchemaImpl(
       return new GraphQLList(getWrappedType(node.type));
     }
     if (node.kind === Kind.NON_NULL_TYPE) {
-      // $FlowFixMe[incompatible-call]
       return new GraphQLNonNull(getWrappedType(node.type));
     }
     return getNamedType(node);

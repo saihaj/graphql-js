@@ -99,7 +99,6 @@ export class GraphQLDirective {
     return this.toString();
   }
 
-  // $FlowFixMe[unsupported-syntax] Flow doesn't support computed properties yet
   get [Symbol.toStringTag]() {
     return 'GraphQLDirective';
   }

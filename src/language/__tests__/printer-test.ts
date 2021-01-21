@@ -23,7 +23,6 @@ describe('Printer: Query document', () => {
   it('produces helpful error messages', () => {
     const badAST = { random: 'Data' };
 
-    // $FlowExpectedError[incompatible-call]
     expect(() => print(badAST)).to.throw(
       'Invalid AST Node: { random: "Data" }.',
     );
@@ -151,7 +150,6 @@ describe('Printer: Query document', () => {
     const printed = print(parse(kitchenSinkQuery));
 
     expect(printed).to.equal(
-      // $FlowFixMe[incompatible-call]
       dedent(String.raw`
       query queryName($foo: ComplexType, $site: Site = MOBILE) @onQuery {
         whoever123is: node(id: [123, 456]) {

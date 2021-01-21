@@ -9,7 +9,6 @@ export function mapAsyncIterator<T, U>(
   callback: (T) => PromiseOrValue<U>,
   rejectCallback?: (any) => PromiseOrValue<U>,
 ): AsyncGenerator<U, void, void> {
-  // $FlowFixMe[prop-missing]
   const iteratorMethod = iterable[Symbol.asyncIterator];
   const iterator: any = iteratorMethod.call(iterable);
   let $return: any;
@@ -36,8 +35,6 @@ export function mapAsyncIterator<T, U>(
       asyncMapValue(error, reject).then(iteratorResult, abruptClose);
   }
 
-  /* TODO: Flow doesn't support symbols as keys:
-     https://github.com/facebook/flow/issues/3258 */
   return {
     next(): Promise<IteratorResult<U, void>> {
       return iterator.next().then(mapResult, mapReject);
