@@ -8,7 +8,10 @@ import { parse } from '../language/parser';
 
 import { assertValidSDL } from '../validation/validate';
 
-import type { GraphQLSchemaValidationOptions } from '../type/schema';
+import type {
+  GraphQLSchemaNormalizedConfig,
+  GraphQLSchemaValidationOptions,
+} from '../type/schema';
 import { GraphQLSchema } from '../type/schema';
 import { specifiedDirectives } from '../type/directives';
 
@@ -46,7 +49,7 @@ export function buildASTSchema(
     assertValidSDL(documentAST);
   }
 
-  const emptySchemaConfig = {
+  const emptySchemaConfig: GraphQLSchemaNormalizedConfig = {
     description: undefined,
     types: [],
     directives: [],

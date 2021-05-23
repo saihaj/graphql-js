@@ -1,4 +1,5 @@
-import type { DocumentNode } from '../language/ast';
+import { Mutable } from '../jsutils/mutable';
+import type { DefinitionNode, DocumentNode } from '../language/ast';
 
 /**
  * Provided a collection of ASTs, presumably each from different files,
@@ -8,7 +9,7 @@ import type { DocumentNode } from '../language/ast';
 export function concatAST(
   documents: ReadonlyArray<DocumentNode>,
 ): DocumentNode {
-  let definitions = [];
+  let definitions = [] as Array<DocumentNode>;
   for (const doc of documents) {
     definitions = definitions.concat(doc.definitions);
   }

@@ -169,7 +169,7 @@ function findConflictsWithinSelectionSet(
   parentType: Maybe<GraphQLNamedType>,
   selectionSet: SelectionSetNode,
 ): Array<Conflict> {
-  const conflicts = [];
+  const conflicts = [] as Array<Conflict>;
 
   const [fieldMap, fragmentNames] = getFieldsAndFragmentNames(
     context,
@@ -374,7 +374,7 @@ function findConflictsBetweenSubSelectionSets(
   parentType2: Maybe<GraphQLNamedType>,
   selectionSet2: SelectionSetNode,
 ): Array<Conflict> {
-  const conflicts = [];
+  const conflicts = [] as Array<Conflict>;
 
   const [fieldMap1, fragmentNames1] = getFieldsAndFragmentNames(
     context,

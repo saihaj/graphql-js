@@ -134,6 +134,7 @@ describe('Validate: Limit maximum number of validation errors', () => {
   function invalidFieldError(fieldName: string) {
     return {
       message: `Cannot query field "${fieldName}" on type "QueryRoot".`,
+      // @ts-expect-error
       locations: [],
     };
   }

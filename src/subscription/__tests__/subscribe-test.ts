@@ -42,7 +42,7 @@ const InboxType = new GraphQLObjectType({
     },
     unread: {
       type: GraphQLInt,
-      resolve: (inbox) => inbox.emails.filter((email) => email.unread).length,
+      resolve: (inbox) => inbox.emails.filter((email: Email) => email.unread).length,
     },
     emails: { type: new GraphQLList(EmailType) },
   },
@@ -122,7 +122,7 @@ function createSubscription(pubsub: SimplePubSub<Email>) {
 }
 
 async function expectPromise(promise: Promise<unknown>) {
-  let caughtError;
+  let caughtError: Error;
 
   try {
     await promise;
@@ -136,7 +136,7 @@ async function expectPromise(promise: Promise<unknown>) {
     toReject() {
       expect(caughtError).to.be.an.instanceOf(Error);
     },
-    toRejectWith(message) {
+    toRejectWith(message: string) {
       expect(caughtError).to.be.an.instanceOf(Error);
       expect(caughtError).to.have.property('message', message);
     },

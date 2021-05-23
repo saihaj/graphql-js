@@ -3,6 +3,7 @@ import type { Maybe } from '../jsutils/Maybe';
 import type { ASTNode } from './ast';
 
 import { visit } from './visitor';
+import type { ASTVisitor } from './visitor';
 import { printBlockString } from './blockString';
 
 /**
@@ -16,7 +17,7 @@ export function print(ast: ASTNode): string {
 const MAX_LINE_LENGTH = 80;
 
 // TODO: provide better type coverage in future
-const printDocASTReducer: any = {
+const printDocASTReducer: ASTVisitor = {
   Name: { leave: (node) => node.value },
   Variable: { leave: (node) => '$' + node.name },
 

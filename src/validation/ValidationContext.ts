@@ -189,7 +189,7 @@ export class ValidationContext extends ASTValidationContext {
   getVariableUsages(node: NodeWithSelectionSet): ReadonlyArray<VariableUsage> {
     let usages = this._variableUsages.get(node);
     if (!usages) {
-      const newUsages = [];
+      const newUsages = [] as Array<VariableUsage>;
       const typeInfo = new TypeInfo(this._schema);
       visit(
         node,

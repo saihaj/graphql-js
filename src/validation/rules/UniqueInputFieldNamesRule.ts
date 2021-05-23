@@ -1,6 +1,7 @@
 import { GraphQLError } from '../../error/GraphQLError';
 
 import type { ASTVisitor } from '../../language/visitor';
+import type { ObjectValueNode } from '../../language/ast';
 
 import type { ASTValidationContext } from '../ValidationContext';
 
@@ -13,7 +14,7 @@ import type { ASTValidationContext } from '../ValidationContext';
 export function UniqueInputFieldNamesRule(
   context: ASTValidationContext,
 ): ASTVisitor {
-  const knownNameStack = [];
+  const knownNameStack = [] as Array<ObjectValueNode>;
   let knownNames = Object.create(null);
 
   return {
